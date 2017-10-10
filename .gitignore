@@ -28,6 +28,7 @@ hs_error_pid*
 *.app
 =======
 <<<<<<< HEAD
+<<<<<<< HEAD
 ~*
 ._*
 .TemporaryItems
@@ -64,4 +65,12 @@ Thumbs.db
 >>>>>>> branch 'master' of https://web-cat.cs.vt.edu/Web-CAT/WebObjects/Web-CAT.woa/git/StudentProject/3dab66a3-2761-4486-878e-a094d1ca49cf
 /bin/
 >>>>>>> branch 'master' of https://web-cat.cs.vt.edu/Web-CAT/WebObjects/Web-CAT.woa/git/StudentProject/3dab66a3-2761-4486-878e-a094d1ca49cf
+=======
+~*
+._*
+.TemporaryItems
+.DS_Store
+Thumbs.db
+>>>>>>> branch 'master' of https://web-cat.cs.vt.edu/Web-CAT/WebObjects/Web-CAT.woa/git/StudentProject/d3c4ee8f-22bb-4a17-b126-3a0a5533ce6d
+>>>>>>> branch 'master' of https://github.com/SidH97/PRQuadTree.git
 /bin/
