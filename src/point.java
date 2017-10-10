@@ -26,12 +26,26 @@ public class point implements Comparable<point>{
 		return name;
 	}
 
+	/**
+	 * this is always the mid point
+	 * and arg0 is always the point in question
+	 * 0 means that the mid point and point are equal
+	 */
 	@Override
 	public int compareTo(point arg0) {
 		if((this.getY() == arg0.getY()) && (this.getX() == arg0.getX())) {
 			return 0;
-		} else {
+		} else if((this.getY() <= arg0.getY())&&(this.getX() < arg0.getX())) {
 			return 1;
+		} else if((this.getY() < arg0.getY())&&(this.getX() >= arg0.getX())) {
+			return 2;
+		} else if((this.getY() >= arg0.getY())&&(this.getX() > arg0.getX())) {
+			return 3;
+		} else if((this.getY() > arg0.getY())&&(this.getX() <= arg0.getX())) {
+			return 4;
+		} else {
+			//this should never happen
+			return -1;
 		}
 		
 	}

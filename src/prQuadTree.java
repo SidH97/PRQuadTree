@@ -1,5 +1,9 @@
 import java.util.Iterator;
 
+import prQuadTree.PRnode;
+import prQuadTree.prInternal;
+import prQuadTree.prLeaf;
+
 /**
  * 
  * @author Matthew Evans (matce93)
@@ -88,7 +92,7 @@ public class prQuadTree <T extends Comparable<T>> implements Iterable<T>
 //		private int xMin;
 //		private int xMax;
 		
-		prInternal(PRnode<T> northWest, PRnode<T> northEast, PRnode<T> southWest, PRnode<T> southEast)
+		prInternal(PRnode<T> northEast, PRnode<T> northWest, PRnode<T> southWest, PRnode<T> southEast)
 		{
 			NW = northWest;
 			NE = northEast;
@@ -193,7 +197,7 @@ public class prQuadTree <T extends Comparable<T>> implements Iterable<T>
 	
     public void insert(T x)
     {
-        root = insert(x, root);
+        root = insert(x, root, 1024, 0, 1024, 0);
     }
 	
     /**
@@ -204,7 +208,7 @@ public class prQuadTree <T extends Comparable<T>> implements Iterable<T>
      * @return 
      */
 	@SuppressWarnings("unchecked")
-	private PRnode<T> insert(T x, PRnode<T> node)
+	private PRnode<T> insert(T x, PRnode<T> node, int max_x, int min_x, int max_y, int min_y)
 	{
 		if(node == null) {   //root is null or internal node is null
 			return new prLeaf(x);
@@ -214,8 +218,8 @@ public class prQuadTree <T extends Comparable<T>> implements Iterable<T>
 				return new prLeaf(x);  //this maybe wrong
 			} else {  //not equal
 				//while(){}
-				int yMid = ((prLeaf) node).getYMax() + ((prLeaf) node).getYMin();
-				int xMid = ((prLeaf) node).getXMax() + ((prLeaf) node).getXMin();
+				int yMid = (max_y + min_y)/2;
+				int xMid = (max_x + min_x)/2;
 				//needs to be a while loop that loops until the two leafs are added to different quardrant within a internal node
 			}
 		} else if(node.getClass().getName().equals("PRnode$prInternal")){  //is an internal node
@@ -223,6 +227,17 @@ public class prQuadTree <T extends Comparable<T>> implements Iterable<T>
 		}
 		//should never get here
 		System.out.println("node.getClass().getName().equals(...) does not work!!!");
+		return null;
+	}
+	
+	private PRnode<T> spittersRquiters(T x, prLeaf node, int max_x, int min_x, int max_y, int min_y)  //also known as splitter
+	{
+		prLeaf northeast = new prLeaf(null);
+		prLeaf northwest = new prLeaf(null);
+		prLeaf southwest = new prLeaf(null);
+		prLeaf southeast = new prLeaf(null);
+		prInternal returnNode = new prInternal(northeast, northwest, southwest, southeast);
+		if(node.getData())
 		return null;
 	}
 
