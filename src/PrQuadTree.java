@@ -32,7 +32,17 @@ public class PrQuadTree<T extends Comparable<? super T>>
         {
             if (data.size() > 3)
             {
-
+                for (int i = 0; i < data.size(); i++)
+                {
+                    for (int j = i; j < data.size(); j++)
+                    {
+                        if (!data.get(i).equals(data.get(j)))
+                        {
+                            return false;
+                        }
+                    }
+                }
+                return true;
             }
             else
             {
