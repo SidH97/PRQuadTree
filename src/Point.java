@@ -1,5 +1,5 @@
 
-public class Point implements Comparable<Point>
+public class Point implements Comparable<Point>, NewComparable<Point>
 {
     public String name;
     public int xcord;
@@ -27,41 +27,43 @@ public class Point implements Comparable<Point>
         return name;
     }
 
-    /**
-     * x and y is always the mid point and arg0 is always the point in question
-     * 0 means that the mid point and point are equal
-     */
-    public int compareTo(Point arg0, int x, int y)
+    public int compareToX(int x)
     {
-        if ((this.getY() == arg0.getY()) && (this.getX() == arg0.getX()))
-        {
-            return 0;
-        }
-        else if ((y <= arg0.getY()) && (x < arg0.getX()))
+        if (this.getX() > x)
         {
             return 1;
         }
-        else if ((y < arg0.getY()) && (x >= arg0.getX()))
+        else if (this.getX() == x)
         {
-            return 2;
-        }
-        else if ((y >= arg0.getY()) && (x > arg0.getX()))
-        {
-            return 3;
-        }
-        else if ((y > arg0.getY()) && (x <= arg0.getX()))
-        {
-            return 4;
+            return 0;
         }
         else
         {
-            // this should never happen
             return -1;
         }
     }
 
     /**
-     * Compares by name and test
+     * this > that 1 this = that 0 this < that -1
+     **/
+    public int compareToY(int y)
+    {
+        if (this.getY() > y)
+        {
+            return 1;
+        }
+        else if (this.getY() == y)
+        {
+            return 0;
+        }
+        else
+        {
+            return -1;
+        }
+    }
+
+    /**
+     * Compares by name
      * 
      * @param shape
      * @return
