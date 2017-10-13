@@ -149,7 +149,7 @@ public class PrQuadTree<T extends NewComparable<? super T>>
         }
         else if ((node.getClass().getName().equals("PRnode$prLeaf"))
                         || (node.getClass().getName().equals("PRnode$prEmpty")))
-        { // is a leaf node
+        { // is a leaf node or empty
             if (((prLeaf) node).insert(x))
             {
                 return node; // if insert is successful means there was space
@@ -158,8 +158,8 @@ public class PrQuadTree<T extends NewComparable<? super T>>
             else
             { // not equal
               // while(){}
-                int yMid = (max_y + min_y) / 2;
-                int xMid = (max_x + min_x) / 2;
+                //int yMid = (max_y + min_y) / 2;
+                //int xMid = (max_x + min_x) / 2;
                 ArrayList<T> temp = ((prLeaf) node).getData();
                 prEmpty northeast = new prEmpty();
                 prEmpty northwest = new prEmpty();
@@ -199,6 +199,15 @@ public class PrQuadTree<T extends NewComparable<? super T>>
 
         return new prLeaf(null);
 
+    }
+    
+    /**
+     * is the PR QuadTree Empty
+     * @return if root is null
+     */
+    public boolean isEmpty()
+    {
+    	return root == null;
     }
 
 }
