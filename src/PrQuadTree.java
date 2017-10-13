@@ -5,7 +5,7 @@ import java.util.ArrayList;
  * @author Matthew Evans (matce93)
  * @author Siddharth Hingorani (sid97)
  */
-public class PrQuadTree<T extends Comparable<? super T>>
+public class PrQuadTree<T extends NewComparable<? super T>>
 {
     @SuppressWarnings("hiding")
     abstract class PRnode<T>
