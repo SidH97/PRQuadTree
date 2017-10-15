@@ -1,3 +1,5 @@
+import PrQuadTree.prLeaf;
+
 /**
  * 
  */
@@ -16,6 +18,10 @@ public class PrQuadTreeTest extends student.TestCase
     private Point point1;
     private Point point2;
     private Point point3;
+    private Point point4;
+    private Point point5;
+    private Point point6;
+    private Point point7;
 
     /**
      * This method will setUp the testing Environment.
@@ -27,6 +33,11 @@ public class PrQuadTreeTest extends student.TestCase
         point1 = new Point("b", 1, 1);
         point2 = new Point("c", 2, 1);
         point3 = new Point("d", 2, 4);
+        point4 = new Point("NE", 1024,1024);
+        point5 = new Point("NW", 0, 1024);
+        point6 = new Point("SW", 0,0);
+        point7 = new Point("SE",1024,0);
+        
     }
 
     /**
@@ -37,14 +48,34 @@ public class PrQuadTreeTest extends student.TestCase
         assertTrue(tree.isEmpty());
         tree.insert(point);
         assertFalse(tree.isEmpty());
-        assertEquals(point, tree.find(point));
+        //assertEquals(point, tree.find(point));
+        assertTrue(tree.find(point));
         tree.insert(point);
-        assertEquals(point, tree.find(point));
+        tree.insert(point);
+        tree.insert(point);
+        //assertEquals(point, tree.find(point));
+        assertTrue(tree.find(point));
         tree.insert(point1);
-        assertEquals(point1, tree.find(point1));
+        //assertEquals(point1, tree.find(point1));
+        assertTrue(tree.find(point1));
         tree.insert(point2);
         tree.insert(point3);
-        assertEquals(point3, tree.find(point3));
+        //assertEquals(point3, tree.find(point3));
+        assertTrue(tree.find(point3));
+        tree.insert(point4);
+        tree.insert(point5);
+        tree.insert(point6);
+        tree.insert(point7);
+        //assertEquals(point4, tree.find(point4));
+        //assertEquals(point5, tree.find(point5));
+        //assertEquals(point6, tree.find(point6));
+        //assertEquals(point7, tree.find(point7));
+        assertTrue(tree.find(point4));
+        assertTrue(tree.find(point5));
+        assertTrue(tree.find(point6));
+//        assertTrue(tree.find(point7));
     }
+    
+
 
 }
