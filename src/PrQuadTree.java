@@ -20,6 +20,7 @@ public class PrQuadTree<T extends NewComparable<? super T>>
 
         prLeaf(T x)
         {
+            data = new ArrayList<T>();
             data.add(x);
         }
 
@@ -28,9 +29,14 @@ public class PrQuadTree<T extends NewComparable<? super T>>
             return data;
         }
 
+        public boolean remove(T x)
+        {
+            return (data.remove(x));
+        }
+
         public boolean insert(T theData)
         {
-            if (data.size() > 3)
+            if (data.size() + 1 > 3)
             {
                 for (int i = 0; i < data.size(); i++)
                 {
@@ -42,7 +48,16 @@ public class PrQuadTree<T extends NewComparable<? super T>>
                         }
                     }
                 }
-                return true;
+                if (data.get(0).equals(theData))
+                {
+                    data.add(theData);
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+
             }
             else
             {
@@ -128,7 +143,7 @@ public class PrQuadTree<T extends NewComparable<? super T>>
 
     public void insert(T x)
     {
-        root = insert(x, root, 1024, 0, 1024, 0);
+        root = insert(x, root);
     }
 
     /**
@@ -140,15 +155,16 @@ public class PrQuadTree<T extends NewComparable<? super T>>
      * @param node
      * @return
      */
-    private PRnode<T> insert(T x, PRnode<T> node, int max_x, int min_x,
-                    int max_y, int min_y)
+    private PRnode<T> insert(T x, PRnode<T> node)
+    // int max_x, int min_x, int max_y, int min_y)
     {
         if (node == null) // root is null or internal node is null
         {
             return new prLeaf(x);
         }
-        else if ((node.getClass().getName().equals("PRnode$prLeaf"))
-                        || (node.getClass().getName().equals("PRnode$prEmpty")))
+        else if ((node.getClass().getName().equals("PrQuadTree$prLeaf"))
+                        || (node.getClass().getName()
+                                        .equals("PrQuadTree$prEmpty")))
         { // is a leaf node or empty
             if (((prLeaf) node).insert(x))
             {
@@ -156,33 +172,41 @@ public class PrQuadTree<T extends NewComparable<? super T>>
                              // in the current leaf node to hold the new data.
             }
             else
-            { // not equal
-              // while(){}
-                //int yMid = (max_y + min_y) / 2;
-                //int xMid = (max_x + min_x) / 2;
-                ArrayList<T> temp = ((prLeaf) node).getData();
-                prEmpty northeast = new prEmpty();
-                prEmpty northwest = new prEmpty();
-                prEmpty southwest = new prEmpty();
-                prEmpty southeast = new prEmpty();
-                node = new prInternal(northeast, northwest, southwest,
-                                southeast);
-                while (!temp.isEmpty())
-                {
-                    insert(temp.get(0));
-                    temp.remove(0);
-                }
+            {
+                // NEED TO SPLIT Current code breaks the pointers.
+                // ArrayList<T> temp = ((prLeaf) node).getData();
+                // prEmpty northeast = new prEmpty();
+                // prEmpty northwest = new prEmpty();
+                // prEmpty southwest = new prEmpty();
+                // prEmpty southeast = new prEmpty();
+                // node = new prInternal(northeast, northwest, southwest,
+                // southeast);
+                // while (!temp.isEmpty())
+                // {
+                // insert(temp.get(0));
+                // temp.remove(0);
+                // }
+                return null;
             }
 
         }
+<<<<<<< HEAD
         else if (node.getClass().getName().equals("PRnode$prInternal"))
         { // is an internal node
 
+=======
+        else if (node.getClass().getName().equals("PrQuadTree$prInternal"))
+        {
+            // NEED TO COMPARE TO THEN BRANCH INTO CORRECT SUBTREE
+            // NEED TO ALSO FIX POINTERS WHEN SPLITTING.
+            return null;
+>>>>>>> branch 'master' of https://github.com/SidH97/PRQuadTree.git
         }
-        // should never get here
-        System.out.println(
-                        "node.getClass().getName().equals(...) does not work!!!");
-        return null;
+        else
+        {
+            return node;
+        }
+
     }
 
     @SuppressWarnings("unused")
@@ -199,14 +223,111 @@ public class PrQuadTree<T extends NewComparable<? super T>>
         return new prLeaf(null);
 
     }
-    
+
     /**
      * is the PR QuadTree Empty
+     * 
      * @return if root is null
      */
     public boolean isEmpty()
     {
-    	return root == null;
+        return root == null;
+    }
+
+    public T find(T x)
+    {
+        PRnode<T> temp = find(x, root);
+        if ((temp != null) && (temp.getClass().getName()
+                        .equals("PrQuadTree$prLeaf")))
+        {
+            ArrayList<T> list = ((prLeaf) temp).getData();
+            for (int i = 0; i < list.size(); i++)
+            {
+                if (x.equals(list.get(i)))
+                {
+                    return list.get(i);
+                }
+            }
+            return null;
+        }
+        else
+        {
+
+            return null;
+        }
+    }
+
+    /**
+     * This method will return the root of the current tree.
+     * 
+     * @return the root node
+     */
+    public PRnode<T> findRoot()
+    {
+        return root;
+    }
+
+    /**
+     * Remove the specified value from the tree.
+     *
+     * @param x
+     *            the item to remove.
+     * @throws Exception
+     *             if not found
+     */
+    public void remove(T x) throws Exception
+    {
+        root = remove(x, root);
+    }
+
+    private PRnode<T> remove(T x, PRnode<T> node) throws Exception
+    {
+        if (node == null)
+        {
+            throw new Exception(x.toString());
+        }
+
+        // if value should be to the left of the root
+        else if (node.getClass().getName().equals("PrQuadTree$prLeaf"))
+        {
+            // NOT SURE ON RETURNING
+            if (((prLeaf) node).remove(x))
+            {
+                return node; // Maybe
+            }
+            else
+            {
+                return null;
+            }
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    private PRnode<T> find(T x, PRnode<T> node)
+    {
+        if (node == null)
+        {
+            return null; // Not found
+        }
+        else if (node.getClass().getName().equals("PrQuadTree$prLeaf"))
+        {
+            ArrayList<T> temp = ((prLeaf) node).getData();
+            if (temp.contains(x))
+            {
+                return node;
+            }
+            else
+            {
+                return null;
+            }
+        }
+        else
+        {
+            return null;
+        }
     }
 
 }
