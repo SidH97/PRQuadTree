@@ -176,7 +176,6 @@ public class PrQuadTree<T extends NewComparable<? super T>>
 
         }
         else if (node.getClass().getName().equals("PRnode$prInternal"))
-
         { // is an internal node
 
         }
