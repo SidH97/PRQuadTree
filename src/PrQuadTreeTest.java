@@ -42,7 +42,9 @@ public class PrQuadTreeTest extends student.TestCase
         assertEquals(point, tree.find(point));
         tree.insert(point1);
         assertEquals(point1, tree.find(point1));
-
+        tree.insert(point2);
+        tree.insert(point3);
+        assertEquals(point3, tree.find(point3));
     }
 
 }

@@ -143,7 +143,7 @@ public class PrQuadTree<T extends NewComparable<? super T>>
 
     public void insert(T x)
     {
-        root = insert(x, root);
+        root = insert(x, root, 1024, 0, 1024, 0);
     }
 
     /**
@@ -155,16 +155,17 @@ public class PrQuadTree<T extends NewComparable<? super T>>
      * @param node
      * @return
      */
-    private PRnode<T> insert(T x, PRnode<T> node)
-    // int max_x, int min_x, int max_y, int min_y)
+    private PRnode<T> insert(T x, PRnode<T> node, int max_x, int min_x, int max_y, int min_y)
     {
         if (node == null) // root is null or internal node is null
         {
             return new prLeaf(x);
         }
-        else if ((node.getClass().getName().equals("PrQuadTree$prLeaf"))
-                        || (node.getClass().getName()
-                                        .equals("PrQuadTree$prEmpty")))
+        else if ((node.getClass().getName().equals("PrQuadTree$prEmpty"))) {
+        	node = new prLeaf(x);
+        	return node;
+        }
+        else if (node.getClass().getName().equals("PrQuadTree$prLeaf"))
         { // is a leaf node or empty
             if (((prLeaf) node).insert(x))
             {
@@ -174,49 +175,60 @@ public class PrQuadTree<T extends NewComparable<? super T>>
             else
             {
                 // NEED TO SPLIT Current code breaks the pointers.
-                // ArrayList<T> temp = ((prLeaf) node).getData();
-                // prEmpty northeast = new prEmpty();
-                // prEmpty northwest = new prEmpty();
-                // prEmpty southwest = new prEmpty();
-                // prEmpty southeast = new prEmpty();
-                // node = new prInternal(northeast, northwest, southwest,
-                // southeast);
-                // while (!temp.isEmpty())
-                // {
-                // insert(temp.get(0));
-                // temp.remove(0);
-                // }
-                return null;
+                 ArrayList<T> temp = ((prLeaf) node).getData();
+                 prEmpty northeast = new prEmpty();
+                 prEmpty northwest = new prEmpty();
+                 prEmpty southwest = new prEmpty();
+                 prEmpty southeast = new prEmpty();
+                 node = new prInternal(northeast, northwest, southwest,
+                         southeast);
+                 while (!temp.isEmpty())
+                 {
+                	 insert(temp.get(0), node, max_x, min_x, max_y, min_y);
+                	 temp.remove(0);
+                 }
+                 
+                 
+                return node;
             }
 
         }
-        else if (node.getClass().getName().equals("PrQuadTree$prInternal"))
+        else //if (node.getClass().getName().equals("PrQuadTree$prInternal"))
         {
             // NEED TO COMPARE TO THEN BRANCH INTO CORRECT SUBTREE
             // NEED TO ALSO FIX POINTERS WHEN SPLITTING.
-            return null;
+        	int mid_x = (min_x + max_x)/2;
+        	int mid_y = (min_y + max_y)/2;
+        	if((x.compareToX(mid_x) <= 0)&&(x.compareToY(mid_y) == 1)) {
+        		//this should be quadrant 2
+        		return insert(x, ((prInternal) node).getNW(), mid_x, min_x, max_y, mid_y);
+        	} else if ((x.compareToX(mid_x) == -1)&&(x.compareToY(mid_y) <= 0)) {
+        		//this should be quadrant 3
+        		return insert(x, ((prInternal) node).getSW(), mid_x, min_x, mid_y, min_y);
+        	} else if ((x.compareToX(mid_x) >= 0)&&(x.compareToY(mid_y) == -1)) {
+        		//this should be the fourth quadrant
+        		return insert(x, ((prInternal)node).getSE(), max_x, mid_x, mid_y, min_y);
+        	} else {
+        		//quadrant 1
+        		return insert(x, ((prInternal)node).getNE(), max_x, mid_x, max_y, mid_y);
+        	}
         }
-        else
-        {
-            return node;
-        }
-
     }
 
-    @SuppressWarnings("unused")
-    private PRnode<T> spittersRquiters(T x, prLeaf node, int max_x, int min_x,
-                    int max_y, int min_y) // also known as splitter
-    {
-        prLeaf northeast = new prLeaf(null);
-        prLeaf northwest = new prLeaf(null);
-        prLeaf southwest = new prLeaf(null);
-        prLeaf southeast = new prLeaf(null);
-        prInternal returnNode = new prInternal(northeast, northwest, southwest,
-                        southeast);
-
-        return new prLeaf(null);
-
-    }
+//    @SuppressWarnings("unused")
+//    private PRnode<T> spittersRquiters(T x, prLeaf node, int max_x, int min_x,
+//                    int max_y, int min_y) // also known as splitter
+//    {
+//        prLeaf northeast = new prLeaf(null);
+//        prLeaf northwest = new prLeaf(null);
+//        prLeaf southwest = new prLeaf(null);
+//        prLeaf southeast = new prLeaf(null);
+//        prInternal returnNode = new prInternal(northeast, northwest, southwest,
+//                        southeast);
+//
+//        return new prLeaf(null);
+//
+//    }
 
     /**
      * is the PR QuadTree Empty
