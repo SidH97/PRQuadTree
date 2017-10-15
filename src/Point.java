@@ -1,4 +1,10 @@
-
+/**
+ * This class will
+ *
+ * @author Siddharth Hingorani (sid97)
+ * @version 2016.xx.xx
+ *
+ */
 public class Point implements Comparable<Point>, NewComparable<Point>
 {
     public String name;
@@ -72,6 +78,31 @@ public class Point implements Comparable<Point>, NewComparable<Point>
     public int compareTo(Point shape)
     {
         return this.name.compareTo(shape.name);
+    }
+
+    /*
+     * Prints the rectangle according to our needs
+     * 
+     * @return the name of the rectangle
+     */
+    @Override
+    public String toString()
+    {
+        return "(" + name + ", " + xcord + ", " + ycord + ")";
+
+    }
+
+    /**
+     * This method checks to see if 2 points are equal.
+     * 
+     * @param ct
+     *            the point to compare to
+     * @return true if the points are equal false if not.
+     */
+    public boolean equals(Point ct)
+    {
+        return ((this.getX() == ct.getX()) && (this.getY() == ct.getY())
+                        && (this.getName().equals(ct.getName())));
     }
 
 }
