@@ -80,7 +80,7 @@ public class Point implements Comparable<Point>, NewComparable<Point>
         return this.name.compareTo(shape.name);
     }
 
-    /*
+    /**
      * Prints the rectangle according to our needs
      * 
      * @return the name of the rectangle

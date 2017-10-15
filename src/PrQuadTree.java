@@ -190,17 +190,11 @@ public class PrQuadTree<T extends NewComparable<? super T>>
             }
 
         }
-<<<<<<< HEAD
-        else if (node.getClass().getName().equals("PRnode$prInternal"))
-        { // is an internal node
-
-=======
         else if (node.getClass().getName().equals("PrQuadTree$prInternal"))
         {
             // NEED TO COMPARE TO THEN BRANCH INTO CORRECT SUBTREE
             // NEED TO ALSO FIX POINTERS WHEN SPLITTING.
             return null;
->>>>>>> branch 'master' of https://github.com/SidH97/PRQuadTree.git
         }
         else
         {
