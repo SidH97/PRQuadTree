@@ -13,7 +13,7 @@ public class PrQuadTree<T extends NewComparable<? super T>>
 
     }
 
-    public class prLeaf<E> extends PRnode<E>
+    public class prLeaf extends PRnode<T>
     {
 
         private ArrayList<T> data;
@@ -155,15 +155,12 @@ public class PrQuadTree<T extends NewComparable<? super T>>
      * @param node
      * @return
      */
-    private PRnode<T> insert(T x, PRnode<T> node, int max_x, int min_x, int max_y, int min_y)
+    private PRnode<T> insert(T x, PRnode<T> node, int max_x, int min_x,
+                    int max_y, int min_y)
     {
         if (node == null) // root is null or internal node is null
         {
-            return new prLeaf<T>(x);
-        }
-        else if ((node.getClass().getName().equals("PrQuadTree$prEmpty"))) {
-        	node = new prLeaf(x);
-        	return node;
+            return new prLeaf(x);
         }
         else if (node.getClass().getName().equals("PrQuadTree$prLeaf"))
         { // is a leaf node or empty
@@ -175,52 +172,111 @@ public class PrQuadTree<T extends NewComparable<? super T>>
             else
             {
                 // NEED TO SPLIT Current code breaks the pointers.
-                 ArrayList<T> temp = ((prLeaf) node).getData();
-                 prEmpty northeast = new prEmpty();
-                 prEmpty northwest = new prEmpty();
-                 prEmpty southwest = new prEmpty();
-                 prEmpty southeast = new prEmpty();
-                 node = new prInternal(northeast, northwest, southwest,
-                         southeast);
-                 while (!temp.isEmpty())
-                 {
-                	 insert(temp.get(0), node, max_x, min_x, max_y, min_y);
-                	 temp.remove(0);
-                 }
-                 return node;
+                ArrayList<T> temp = ((prLeaf) node).getData();
+                prEmpty northeast = new prEmpty();
+                prEmpty northwest = new prEmpty();
+                prEmpty southwest = new prEmpty();
+                prEmpty southeast = new prEmpty();
+                node = new prInternal(northeast, northwest, southwest,
+                                southeast);
+
+                for (int i = 0; i < temp.size(); i++)
+                {
+                    insert(temp.get(i), node, max_x, min_x, max_y, min_y);
+                }
+                insert(x, node, max_x, min_x, max_y, min_y);
+                return node;
             }
 
         }
-        else //if (node.getClass().getName().equals("PrQuadTree$prInternal"))
+        else if (node.getClass().getName().equals("PrQuadTree$prInternal"))
         {
-        	int mid_x = (min_x + max_x)/2;
-        	int mid_y = (min_y + max_y)/2;
-        	if((x.compareToX(mid_x) <= 0)&&(x.compareToY(mid_y) == 1)) { //quadrant 2
-        		return insert(x, ((prInternal) node).getNW(), mid_x, min_x, max_y, mid_y);
-        	} else if ((x.compareToX(mid_x) == -1)&&(x.compareToY(mid_y) <= 0)) {  //quadrant 3
-        		return insert(x, ((prInternal) node).getSW(), mid_x, min_x, mid_y, min_y);
-        	} else if ((x.compareToX(mid_x) >= 0)&&(x.compareToY(mid_y) == -1)) {  //quadrant 4
-        		return insert(x, ((prInternal)node).getSE(), max_x, mid_x, mid_y, min_y);
-        	} else {  //quadrant 1
-        		return insert(x, ((prInternal)node).getNE(), max_x, mid_x, max_y, mid_y);
-        	}
+            int mid_x = (min_x + max_x) / 2;
+            int mid_y = (min_y + max_y) / 2;
+            if ((x.compareToX(mid_x) <= 0) && (x.compareToY(mid_y) == 1))
+            { // quadrant 2
+                if (((prInternal) node).getNW().getClass().getName()
+                                .equals("PrQuadTree$prEmpty"))
+                {
+                    ((prInternal) node).setNW(new prLeaf(x));
+                }
+                else
+                {
+                    ((prInternal) node).setNW(insert(x,
+                                    ((prInternal) node).getNW(), mid_x, min_x,
+                                    max_y, mid_y));
+                }
+
+            }
+            else if ((x.compareToX(mid_x) == -1) && (x.compareToY(mid_y) <= 0))
+            { // quadrant 3
+                if (((prInternal) node).getSW().getClass().getName()
+                                .equals("PrQuadTree$prEmpty"))
+                {
+                    ((prInternal) node).setSW(new prLeaf(x));
+                }
+                else
+                {
+                    ((prInternal) node).setSW(insert(x,
+                                    ((prInternal) node).getSW(), mid_x, min_x,
+                                    mid_y, min_y));
+                }
+
+            }
+            else if ((x.compareToX(mid_x) >= 0) && (x.compareToY(mid_y) == -1))
+            { // quadrant 4
+                if (((prInternal) node).getSE().getClass().getName()
+                                .equals("PrQuadTree$prEmpty"))
+                {
+                    ((prInternal) node).setSE(new prLeaf(x));
+                }
+                else
+                {
+                    ((prInternal) node).setSE(insert(x,
+                                    ((prInternal) node).getSE(), max_x, mid_x,
+                                    mid_y, min_y));
+                }
+
+            }
+            else
+            { // quadrant 1
+                if (((prInternal) node).getNE().getClass().getName()
+                                .equals("PrQuadTree$prEmpty"))
+                {
+                    ((prInternal) node).setNE(new prLeaf(x));
+                }
+                else
+                {
+                    ((prInternal) node).setNE(insert(x,
+                                    ((prInternal) node).getNE(), max_x, mid_x,
+                                    max_y, mid_y));
+                }
+
+            }
+            return node;
+        }
+        else
+        {
+            System.out.println("Fucked up");
+            return node;
         }
     }
 
-//    @SuppressWarnings("unused")
-//    private PRnode<T> spittersRquiters(T x, prLeaf node, int max_x, int min_x,
-//                    int max_y, int min_y) // also known as splitter
-//    {
-//        prLeaf northeast = new prLeaf(null);
-//        prLeaf northwest = new prLeaf(null);
-//        prLeaf southwest = new prLeaf(null);
-//        prLeaf southeast = new prLeaf(null);
-//        prInternal returnNode = new prInternal(northeast, northwest, southwest,
-//                        southeast);
-//
-//        return new prLeaf(null);
-//
-//    }
+    // @SuppressWarnings("unused")
+    // private PRnode<T> spittersRquiters(T x, prLeaf node, int max_x, int
+    // min_x,
+    // int max_y, int min_y) // also known as splitter
+    // {
+    // prLeaf northeast = new prLeaf(null);
+    // prLeaf northwest = new prLeaf(null);
+    // prLeaf southwest = new prLeaf(null);
+    // prLeaf southeast = new prLeaf(null);
+    // prInternal returnNode = new prInternal(northeast, northwest, southwest,
+    // southeast);
+    //
+    // return new prLeaf(null);
+    //
+    // }
 
     /**
      * is the PR QuadTree Empty
@@ -232,28 +288,28 @@ public class PrQuadTree<T extends NewComparable<? super T>>
         return root == null;
     }
 
-//    public T find(T x)
-//    {
-//        PRnode<T> temp = find(x, root);
-//        if ((temp != null) && (temp.getClass().getName()
-//                        .equals("PrQuadTree$prLeaf")))
-//        {
-//            ArrayList<T> list = ((prLeaf) temp).getData();
-//            for (int i = 0; i < list.size(); i++)
-//            {
-//                if (x.equals(list.get(i)))
-//                {
-//                    return list.get(i);
-//                }
-//            }
-//            return null;
-//        }
-//        else
-//        {
-//
-//            return null;
-//        }
-//    }
+    // public T find(T x)
+    // {
+    // PRnode<T> temp = find(x, root);
+    // if ((temp != null) && (temp.getClass().getName()
+    // .equals("PrQuadTree$prLeaf")))
+    // {
+    // ArrayList<T> list = ((prLeaf) temp).getData();
+    // for (int i = 0; i < list.size(); i++)
+    // {
+    // if (x.equals(list.get(i)))
+    // {
+    // return list.get(i);
+    // }
+    // }
+    // return null;
+    // }
+    // else
+    // {
+    //
+    // return null;
+    // }
+    // }
 
     /**
      * This method will return the root of the current tree.
@@ -304,11 +360,13 @@ public class PrQuadTree<T extends NewComparable<? super T>>
         }
     }
 
-    public boolean find(T x) {
-    	return find(x, root,1024,0,1024,0);
+    public boolean find(T x)
+    {
+        return find(x, root, 1024, 0, 1024, 0);
     }
-    
-    private boolean find(T x, PRnode<T> node, int max_x, int min_x, int max_y, int min_y)
+
+    private boolean find(T x, PRnode<T> node, int max_x, int min_x, int max_y,
+                    int min_y)
     {
         if (node == null)
         {
@@ -317,27 +375,35 @@ public class PrQuadTree<T extends NewComparable<? super T>>
         else if (node.getClass().getName().equals("PrQuadTree$prLeaf"))
         {
             ArrayList<T> temp = ((prLeaf) node).getData();
-            if (temp.contains(x))
-            {
-                return true;
-            }
+            return (temp.contains(x));
         }
         else if (node.getClass().getName().equals("PrQuadTree$prInternal"))
         {
-            int mid_x = (min_x + max_x)/2;
-        	int mid_y = (min_y + max_y)/2;
-        	if((x.compareToX(mid_x) <= 0)&&(x.compareToY(mid_y) == 1)) { //quadrant 2
-        		return find(x, ((prInternal) node).getNW(), mid_x, min_x, max_y, mid_y);
-        	} else if ((x.compareToX(mid_x) == -1)&&(x.compareToY(mid_y) <= 0)) {  //quadrant 3
-        		return find(x, ((prInternal) node).getSW(), mid_x, min_x, mid_y, min_y);
-        	} else if ((x.compareToX(mid_x) >= 0)&&(x.compareToY(mid_y) == -1)) {  //quadrant 4
-        		return find(x, ((prInternal) node).getSE(), max_x, mid_x, mid_y, min_y);
-        	} else {  //quadrant 1
-        		return find(x, ((prInternal) node).getNE(), max_x, mid_x, max_y, mid_y);
-        	}
-        } 
-		return false;
-        
+            int mid_x = (min_x + max_x) / 2;
+            int mid_y = (min_y + max_y) / 2;
+            if ((x.compareToX(mid_x) <= 0) && (x.compareToY(mid_y) == 1))
+            { // quadrant 2
+                return find(x, ((prInternal) node).getNW(), mid_x, min_x, max_y,
+                                mid_y);
+            }
+            else if ((x.compareToX(mid_x) == -1) && (x.compareToY(mid_y) <= 0))
+            { // quadrant 3
+                return find(x, ((prInternal) node).getSW(), mid_x, min_x, mid_y,
+                                min_y);
+            }
+            else if ((x.compareToX(mid_x) >= 0) && (x.compareToY(mid_y) == -1))
+            { // quadrant 4
+                return find(x, ((prInternal) node).getSE(), max_x, mid_x, mid_y,
+                                min_y);
+            }
+            else
+            { // quadrant 1
+                return find(x, ((prInternal) node).getNE(), max_x, mid_x, max_y,
+                                mid_y);
+            }
+        }
+        return false;
+
     }
 
 }
