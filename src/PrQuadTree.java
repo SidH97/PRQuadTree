@@ -582,6 +582,7 @@ public class PrQuadTree<T extends NewComparable<? super T>>
     
     /**
      * public for testing
+     * this will not work 
      */
     public int inOrder(PRnode<T> t, int depth)
     {
@@ -596,6 +597,7 @@ public class PrQuadTree<T extends NewComparable<? super T>>
     		j = inOrder(((prInternal) t).getSE(), depth + 1);
     		if (t.getClass().getName().equals("PrQuadTree$prLead")){
     			System.out.println("Node has depth " + depth + ", Value " + ((prLeaf) t).getData().toString());
+    			//this is also wrong
     		}
     		k = inOrder(((prInternal) t).getNW(), depth + 1);
     		l = inOrder(((prInternal) t).getNE(), depth + 1);
