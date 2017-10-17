@@ -143,7 +143,8 @@ public class PrQuadTree<T extends NewComparable<? super T>>
 
     public void insert(T x)
     {
-        root = insert(x, root, 1024, 0, 1024, 0);
+    	//SID=============================================================================================
+        root = insert(x, root, 1024, 0, 1024, 0);  //this will need to be changed 
     }
 
     /**
@@ -576,7 +577,30 @@ public class PrQuadTree<T extends NewComparable<? super T>>
             }
         }
         return false;
-
+    }
+    
+    
+    /**
+     * public for testing
+     */
+    public int inOrder(PRnode<T> t, int depth)
+    {
+    	int i = 0;
+    	int j = 0;
+    	int k = 0;
+    	int l = 0;
+    	int m = depth;
+    	if (!t.getClass().getName().equals("PrQuadTree$prEmpty"))
+    	{
+    		i = inOrder(((prInternal) t).getSW(), depth + 1);
+    		j = inOrder(((prInternal) t).getSE(), depth + 1);
+    		if (t.getClass().getName().equals("PrQuadTree$prLead")){
+    			System.out.println("Node has depth " + depth + ", Value " + ((prLeaf) t).getData().toString());
+    		}
+    		k = inOrder(((prInternal) t).getNW(), depth + 1);
+    		l = inOrder(((prInternal) t).getNE(), depth + 1);
+    	}
+    	return Math.max(m, Math.max(Math.max(i, j), Math.max(k, l)));
     }
 
 }
