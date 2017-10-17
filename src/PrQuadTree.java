@@ -261,6 +261,207 @@ public class PrQuadTree<T extends NewComparable<? super T>>
             return node;
         }
     }
+    
+    public boolean delete(T x)
+    {
+    	if(isEmpty()) {
+    		return false;
+    	} else {
+    		return delete(x, root, 1024,0,1024,0) != null;  //returns null if not found
+    	}
+    }
+    
+    private PRnode<T> delete(T x, PRnode<T> node, int max_x, int min_x, int max_y, int min_y)
+    {
+    	if (node.getClass().getName().equals("PrQuadTree$prLeaf"))
+    	{
+    		 if (((prLeaf) node).equals(x))  //the data exists
+    		 {
+    			 if (((prLeaf) node).getData().size() == 1)  // the data is the only element
+    			 {
+    				 ((prLeaf) node).remove(x); // NOT CHECKING IF IT ACTUALLY GETS REMOVED
+    				 return new prEmpty();  //returns empty node recursively
+    			 }
+    			 else //the data is not the only element
+    			 {
+    				 ((prLeaf) node).remove(x);  // NOT CHECKING IF IT ACTUALLY GETS REMOVED
+    				 return node;  //returns leaf node
+    			 }
+    		 }
+    	}
+    	else if (node.getClass().getName().equals("PrQuadTree$prInternal"))
+    	{
+    		int mid_x = (min_x + max_x) / 2;
+            int mid_y = (min_y + max_y) / 2;
+            //checks what quadrant the point falls into
+            if ((x.compareToX(mid_x) <= 0) && (x.compareToY(mid_y) == 1))
+            { // quadrant 2
+                if (((prInternal) node).getNW().getClass().getName().equals("PrQuadTree$prEmpty"))  //quadrant is empty
+                {
+                    return null;  //recursively returns null
+                }
+                else
+                {
+                	PRnode holder = delete(x, ((prInternal) node).getNW(), mid_x, min_x, max_y, mid_y);  //recursively call delete on the quadrant
+                	holder = getChild(holder);  //gets the correct child from helper method
+                	if (holder != null)  //checks not null before setting the new child
+                	{
+                		((prInternal) node).setNW(holder);
+                	}
+                	return holder;  //returns the child
+                }
+
+            }
+            else if ((x.compareToX(mid_x) == -1) && (x.compareToY(mid_y) <= 0))
+            { // quadrant 3
+                if (((prInternal) node).getSW().getClass().getName().equals("PrQuadTree$prEmpty"))
+                {
+                    return null;
+                }
+                else
+                {
+                	PRnode holder = delete(x, ((prInternal) node).getSW(), mid_x, min_x, mid_y, min_y);
+                	holder = getChild(holder);
+                	if (holder != null)
+                	{
+                		((prInternal) node).setSW(holder);
+                	}
+                	return holder;
+                }
+
+            }
+            else if ((x.compareToX(mid_x) >= 0) && (x.compareToY(mid_y) == -1))
+            { // quadrant 4
+                if (((prInternal) node).getSE().getClass().getName().equals("PrQuadTree$prEmpty"))
+                {
+                    return null;
+                }
+                else
+                {
+                	PRnode holder = delete(x, ((prInternal) node).getSE(), max_x, mid_x, mid_y, min_y)
+                	holder = getChild(holder);
+                	if (holder != null)
+                	{
+                		((prInternal) node).setSE(holder);
+                	}
+                	return holder;
+                }
+
+            }
+            else
+            { // quadrant 1
+                if (((prInternal) node).getNE().getClass().getName().equals("PrQuadTree$prEmpty"))
+                {
+                    return null;
+                }
+                else
+                {
+                    PRnode holder = delete(x, ((prInternal) node).getNE(), max_x, mid_x, max_y, mid_y)
+                        	holder = getChild(holder);
+                        	if (holder != null)
+                        	{
+                        		((prInternal) node).setNE(holder);
+                        	}
+                        	return holder;
+                }
+
+            }
+
+    	}
+    	else  //either reached an empty node or data was not found
+    	{
+    		return null;
+    	}
+    }
+    
+    private PRnode<T> getChild(PRnode node)
+    {
+    	if (node.getClass().getName().equals("PrQuadTree$prLeaf")) 
+    	{
+    		return node;
+    	}
+    	else if (node.getClass().getName().equals("PrQuadTree$prInternal"))
+    	{
+    		int i = 0;
+    		if (((prInternal) node).getNE().getClass().getName().equals("PrQuadTree$prEmpty"))
+    		{
+    			//do nothing
+    		} 
+    		else 
+    		{
+    			i++;
+    		}
+    		if (((prInternal) node).getNW().getClass().getName().equals("PrQuadTree$prEmpty"))
+    		{
+    			//do nothing
+    		} 
+    		else 
+    		{
+    			i++;
+    		}
+    		if (((prInternal) node).getSW().getClass().getName().equals("PrQuadTree$prEmpty"))
+    		{
+    			//do nothing
+    		} 
+    		else 
+    		{
+    			i++;
+    		}
+    		if (((prInternal) node).getSE().getClass().getName().equals("PrQuadTree$prEmpty"))
+    		{
+    			//do nothing
+    		} 
+    		else 
+    		{
+    			i++;
+    		}
+    		if (i == 0)  //no children
+    		{
+    			return new prEmpty();
+    		}
+    		else if (i == 1)  //one child
+    		{
+    			if (((prInternal) node).getNE().getClass().getName().equals("PrQuadTree$prEmpty"))
+        		{
+        			//do nothing
+        		} 
+        		else 
+        		{
+        			return ((prInternal) node).getNE();
+        		}
+        		if (((prInternal) node).getNW().getClass().getName().equals("PrQuadTree$prEmpty"))
+        		{
+        			//do nothing
+        		} 
+        		else 
+        		{
+        			return ((prInternal) node).getNW();
+        		}
+        		if (((prInternal) node).getSW().getClass().getName().equals("PrQuadTree$prEmpty"))
+        		{
+        			//do nothing
+        		} 
+        		else 
+        		{
+        			return ((prInternal) node).getSW();
+        		}
+        		if (((prInternal) node).getSE().getClass().getName().equals("PrQuadTree$prEmpty"))
+        		{
+        			//do nothing
+        		} 
+        		else 
+        		{
+        			return ((prInternal) node).getSE();
+        		}
+    		}
+    		else  //two or more children
+    		{
+    			return node;
+    		}
+    	} 
+    	//node is null or empty
+    	return null;
+    }
 
     // @SuppressWarnings("unused")
     // private PRnode<T> spittersRquiters(T x, prLeaf node, int max_x, int
