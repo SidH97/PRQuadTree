@@ -275,7 +275,7 @@ public class PrQuadTree<T extends NewComparable<? super T>>
     {
     	if (node.getClass().getName().equals("PrQuadTree$prLeaf"))
     	{
-    		 if (((prLeaf) node).equals(x))  //the data exists
+    		 if (((prLeaf) node).getData().contains(x))  //the data exists
     		 {
     			 if (((prLeaf) node).getData().size() == 1)  // the data is the only element
     			 {
