@@ -474,22 +474,6 @@ public class PrQuadTree<T extends NewComparable<? super T>>
     	return node;
     }
 
-    // @SuppressWarnings("unused")
-    // private PRnode<T> spittersRquiters(T x, prLeaf node, int max_x, int
-    // min_x,
-    // int max_y, int min_y) // also known as splitter
-    // {
-    // prLeaf northeast = new prLeaf(null);
-    // prLeaf northwest = new prLeaf(null);
-    // prLeaf southwest = new prLeaf(null);
-    // prLeaf southeast = new prLeaf(null);
-    // prInternal returnNode = new prInternal(northeast, northwest, southwest,
-    // southeast);
-    //
-    // return new prLeaf(null);
-    //
-    // }
-
     /**
      * is the PR QuadTree Empty
      * 
@@ -499,29 +483,6 @@ public class PrQuadTree<T extends NewComparable<? super T>>
     {
         return root == null;
     }
-
-    // public T find(T x)
-    // {
-    // PRnode<T> temp = find(x, root);
-    // if ((temp != null) && (temp.getClass().getName()
-    // .equals("PrQuadTree$prLeaf")))
-    // {
-    // ArrayList<T> list = ((prLeaf) temp).getData();
-    // for (int i = 0; i < list.size(); i++)
-    // {
-    // if (x.equals(list.get(i)))
-    // {
-    // return list.get(i);
-    // }
-    // }
-    // return null;
-    // }
-    // else
-    // {
-    //
-    // return null;
-    // }
-    // }
 
     /**
      * This method will return the root of the current tree.
