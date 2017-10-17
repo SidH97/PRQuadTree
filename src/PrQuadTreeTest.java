@@ -20,6 +20,7 @@ public class PrQuadTreeTest extends student.TestCase
     private Point point5;
     private Point point6;
     private Point point7;
+    private Point point8;
 
     /**
      * This method will setUp the testing Environment.
@@ -28,13 +29,14 @@ public class PrQuadTreeTest extends student.TestCase
     {
         tree = new PrQuadTree<Point>();
         point = new Point("a", 1, 1);
-        point1 = new Point("b", 1, 1);
-        point2 = new Point("c", 2, 1);
-        point3 = new Point("d", 2, 4);
+        point1 = new Point("b", 10, 10);
+        point2 = new Point("c", 100, 100);
+        point3 = new Point("d", 0, 100);
         point4 = new Point("NE", 1024, 1024);
         point5 = new Point("NW", 0, 1024);
         point6 = new Point("SW", 0, 0);
         point7 = new Point("SE", 1024, 0);
+        point8 = new Point("e", 100, 0);
 
     }
 
@@ -78,6 +80,7 @@ public class PrQuadTreeTest extends student.TestCase
     
     public void testDelete()
     {
+    	//base case
     	assertTrue(tree.isEmpty());
         tree.insert(point);
         tree.insert(point);
@@ -88,6 +91,17 @@ public class PrQuadTreeTest extends student.TestCase
         assertTrue(tree.find(point7));
         assertTrue(tree.delete(point7));
         assertFalse(tree.find(point7));
+        //has 2 "point"
+        tree.insert(point1);
+        //CAN NOT USE "point2"
+        tree.insert(point3);
+        tree.insert(point4);
+        tree.insert(point5);
+        tree.insert(point6);
+        tree.insert(point7);
+        tree.insert(point8);
+        assertTrue(tree.delete(point8));
+        assertFalse(tree.find(point8));
     }
 
 }
