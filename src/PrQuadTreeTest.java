@@ -100,6 +100,7 @@ public class PrQuadTreeTest extends student.TestCase
         tree.insert(point6);
         tree.insert(point7);
         tree.insert(point8);
+        assertTrue(tree.find(point8));
         assertTrue(tree.delete(point8));
         assertFalse(tree.find(point8));
     }

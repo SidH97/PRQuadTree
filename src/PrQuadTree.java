@@ -267,13 +267,22 @@ public class PrQuadTree<T extends NewComparable<? super T>>
     	if(isEmpty()) {
     		return false;
     	} else {
-    		return delete(x, root, 1024,0,1024,0) != null;  //returns null if not found
+    		PRnode hold = delete(x, root, 1024,0,1024,0);  //returns null if not found
+    		if (hold != null) {
+    			root = hold;
+    			return true;
+    		}
+    		return false; //null
     	}
     }
     
     private PRnode<T> delete(T x, PRnode<T> node, int max_x, int min_x, int max_y, int min_y)
     {
-    	if (node.getClass().getName().equals("PrQuadTree$prLeaf"))
+    	if (node == null)
+    	{
+    		return null;
+    	}
+        else if (node.getClass().getName().equals("PrQuadTree$prLeaf"))
     	{
     		 if (((prLeaf) node).getData().contains(x))  //the data exists
     		 {
@@ -374,7 +383,11 @@ public class PrQuadTree<T extends NewComparable<? super T>>
     
     private PRnode<T> getChild(PRnode node)
     {
-    	if (node.getClass().getName().equals("PrQuadTree$prLeaf")) 
+    	if (node == null)
+    	{
+    		return null;
+    	}
+        else if (node.getClass().getName().equals("PrQuadTree$prLeaf")) 
     	{
     		return node;
     	}
@@ -457,8 +470,8 @@ public class PrQuadTree<T extends NewComparable<? super T>>
     			return node;
     		}
     	} 
-    	//node is null or empty
-    	return null;
+    	//node is empty
+    	return node;
     }
 
     // @SuppressWarnings("unused")
