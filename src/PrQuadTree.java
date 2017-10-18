@@ -303,7 +303,7 @@ public class PrQuadTree<T extends NewComparable<? super T>>
                 }
                 return true;
             }
-            return false; // null
+            return false; // 
         }
     }
     
