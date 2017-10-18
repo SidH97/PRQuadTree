@@ -7,6 +7,13 @@ import java.util.ArrayList;
  */
 public class PrQuadTree<T extends NewComparable<? super T>>
 {
+	static int worldXmin = 0;
+	static int worldXmax = 0;
+	static int worldYmin = 0;
+	static int worldYmax = 0;
+	
+    private PRnode<T> root;
+	
     @SuppressWarnings("hiding")
     abstract class PRnode<T>
     {
@@ -134,8 +141,6 @@ public class PrQuadTree<T extends NewComparable<? super T>>
         }
     }
 
-    private PRnode<T> root;
-
     public PrQuadTree()
     {
         root = null;
@@ -143,9 +148,24 @@ public class PrQuadTree<T extends NewComparable<? super T>>
 
     public void insert(T x)
     {
-        // SID=============================================================================================
-        root = insert(x, root, 1024, 0, 1024, 0); // this will need to be
+        root = insert(x, root, worldXmax, worldXmin, worldYmax, worldYmin); // this will need to be
                                                   // changed
+    }
+    
+
+    public boolean find(T x)
+    {
+        return find(x, root, worldXmax, worldXmin, worldYmax, worldYmin);
+    }
+    
+    /**
+     * is the PR QuadTree Empty
+     * 
+     * @return if root is null
+     */
+    public boolean isEmpty()
+    {
+        return root == null;
     }
 
     /**
@@ -272,7 +292,7 @@ public class PrQuadTree<T extends NewComparable<? super T>>
         }
         else
         {
-            PRnode<T> hold = delete(x, root, 1024, 0, 1024, 0); // returns null
+            PRnode<T> hold = delete(x, root, worldXmax, worldXmin, worldYmax, worldYmin); // returns null
                                                                 // if not found
             if (hold != null)
             {
@@ -282,6 +302,33 @@ public class PrQuadTree<T extends NewComparable<? super T>>
             return false; // null
         }
     }
+    
+    /**
+     * Remove the specified value from the tree.
+     *
+     * @param x
+     *            the item to remove.
+     * @throws Exception
+     *             if not found
+     */
+    public void remove(T x) throws Exception
+    {
+        root = remove(x, root);
+    }
+    
+    /**
+     * This method will return the root of the current tree.
+     * 
+     * @return the root node
+     */
+    public PRnode<T> findRoot()
+    {
+        return root;
+    }
+    
+    
+    
+    
 
     private PRnode<T> delete(T x, PRnode<T> node, int max_x, int min_x,
                     int max_y, int min_y)
@@ -507,39 +554,6 @@ public class PrQuadTree<T extends NewComparable<? super T>>
         return node;
     }
 
-    /**
-     * is the PR QuadTree Empty
-     * 
-     * @return if root is null
-     */
-    public boolean isEmpty()
-    {
-        return root == null;
-    }
-
-    /**
-     * This method will return the root of the current tree.
-     * 
-     * @return the root node
-     */
-    public PRnode<T> findRoot()
-    {
-        return root;
-    }
-
-    /**
-     * Remove the specified value from the tree.
-     *
-     * @param x
-     *            the item to remove.
-     * @throws Exception
-     *             if not found
-     */
-    public void remove(T x) throws Exception
-    {
-        root = remove(x, root);
-    }
-
     private PRnode<T> remove(T x, PRnode<T> node) throws Exception
     {
         if (node == null)
@@ -566,10 +580,6 @@ public class PrQuadTree<T extends NewComparable<? super T>>
         }
     }
 
-    public boolean find(T x)
-    {
-        return find(x, root, 1024, 0, 1024, 0);
-    }
 
     private boolean find(T x, PRnode<T> node, int max_x, int min_x, int max_y,
                     int min_y)
@@ -609,32 +619,6 @@ public class PrQuadTree<T extends NewComparable<? super T>>
             }
         }
         return false;
-    }
-
-    /**
-     * public for testing this will not work
-     */
-    public int inOrder(PRnode<T> t, int depth)
-    {
-        int i = 0;
-        int j = 0;
-        int k = 0;
-        int l = 0;
-        int m = depth;
-        if (!t.getClass().getName().equals("PrQuadTree$prEmpty"))
-        {
-            i = inOrder(((prInternal) t).getSW(), depth + 1);
-            j = inOrder(((prInternal) t).getSE(), depth + 1);
-            if (t.getClass().getName().equals("PrQuadTree$prLead"))
-            {
-                System.out.println("Node has depth " + depth + ", Value "
-                                + ((prLeaf) t).getData().toString());
-                // this is also wrong
-            }
-            k = inOrder(((prInternal) t).getNW(), depth + 1);
-            l = inOrder(((prInternal) t).getNE(), depth + 1);
-        }
-        return Math.max(m, Math.max(Math.max(i, j), Math.max(k, l)));
     }
 
 }
