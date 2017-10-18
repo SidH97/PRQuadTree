@@ -47,11 +47,7 @@ public class BST<T extends Comparable<T>> implements Iterable<T>
         {
             System.out.println("Node has depth 0, Value (null)");
         }
-        //int j = 
-        this.inOrder(root, 0);
-        //System.out.println("BST size is: " + j);
-        //int k = 1;
-        
+        this.inOrder(root, 0);        
     }
     
     /**

@@ -14,9 +14,9 @@ public class BSTTest extends student.TestCase
 {
 
     private BST<Point> tree;
-    private Point pnt;
-    private Point pnt1;
-    private Point pnt2;
+    private Point rec;
+    private Point rec1;
+    private Point rec2;
 
     /**
      * This method will setUp the testing Environment.
@@ -24,9 +24,9 @@ public class BSTTest extends student.TestCase
     public void setUp()
     {
         tree = new BST<Point>();
-        pnt = new Point("baa", 1, 1);
-        pnt1 = new Point("aaa", 1, 1);
-        pnt2 = new Point("caa", 1, 1);
+        rec = new Point("baa", 1, 1);
+        rec1 = new Point("aaa", 1, 1);
+        rec2 = new Point("caa", 1, 1);
     }
 
     /**
@@ -34,12 +34,15 @@ public class BSTTest extends student.TestCase
      */
     public void testInsert()
     {
-        tree.insert(pnt);
-        tree.insert(pnt1);
-        tree.insert(pnt2);
-        tree.insert(pnt);
+        assertTrue(tree.isEmpty());
+        tree.insert(rec);
+        assertEquals(rec, tree.find(rec));
+        tree.insert(rec1);
+        assertEquals(rec1, tree.find(rec1));
+        tree.insert(rec2);
+        assertEquals(rec2, tree.find(rec2));
+        tree.insert(rec);
         assertFalse(tree.isEmpty());
-        assertEquals(pnt, tree.find(pnt));
     }
 
     /**
@@ -48,11 +51,11 @@ public class BSTTest extends student.TestCase
     public void testRemove()
     {
         Exception out = null;
-        tree.insert(pnt);
-        tree.insert(pnt);
+        tree.insert(rec);
+        tree.insert(rec);
         try
         {
-            tree.remove(pnt);
+            tree.remove(rec);
         }
         catch (Exception e1)
         {
@@ -62,7 +65,7 @@ public class BSTTest extends student.TestCase
         assertFalse(tree.isEmpty());
         try
         {
-            tree.remove(pnt);
+            tree.remove(rec);
         }
         catch (Exception e1)
         {
@@ -72,7 +75,7 @@ public class BSTTest extends student.TestCase
         assertTrue(tree.isEmpty());
         try
         {
-            tree.remove(pnt);
+            tree.remove(rec);
         }
         catch (Exception e)
         {
@@ -86,10 +89,10 @@ public class BSTTest extends student.TestCase
      */
     public void testFind()
     {
-        tree.insert(pnt);
-        tree.insert(pnt1);
-        assertEquals(pnt, tree.find(pnt));
-        assertNull(tree.find(pnt2));
+        tree.insert(rec);
+        tree.insert(rec1);
+        assertEquals(rec, tree.find(rec));
+        assertNull(tree.find(rec2));
     }
 
     /**
@@ -97,7 +100,7 @@ public class BSTTest extends student.TestCase
      */
     public void testMakeEmpty()
     {
-        tree.insert(pnt);
+        tree.insert(rec);
         assertFalse(tree.isEmpty());
         tree.makeEmpty();
         assertTrue(tree.isEmpty());
