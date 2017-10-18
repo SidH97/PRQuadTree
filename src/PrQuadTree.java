@@ -259,7 +259,7 @@ public class PrQuadTree<T extends NewComparable<? super T>>
         }
         else
         {
-            System.out.println("Fucked up");
+            System.out.println("Insert Fucked up");
             return node;
         }
     }
