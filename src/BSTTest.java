@@ -34,9 +34,13 @@ public class BSTTest extends student.TestCase
      */
     public void testInsert()
     {
+    	assertTrue(tree.isEmpty());
         tree.insert(rec);
+        assertEquals(rec, tree.find(rec));
         tree.insert(rec1);
+        assertEquals(rec1, tree.find(rec1));
         tree.insert(rec2);
+        assertEquals(rec2, tree.find(rec2));
         tree.insert(rec);
         assertFalse(tree.isEmpty());
         assertEquals(rec, tree.find(rec));
