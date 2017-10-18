@@ -7,13 +7,13 @@ import java.util.ArrayList;
  */
 public class PrQuadTree<T extends NewComparable<? super T>>
 {
-	static int worldXmin = 0;
-	static int worldXmax = 0;
-	static int worldYmin = 0;
-	static int worldYmax = 0;
-	
+    static int worldXmin = 0;
+    static int worldXmax = 1024;
+    static int worldYmin = 0;
+    static int worldYmax = 1024;
+
     private PRnode<T> root;
-	
+
     @SuppressWarnings("hiding")
     abstract class PRnode<T>
     {
@@ -148,16 +148,14 @@ public class PrQuadTree<T extends NewComparable<? super T>>
 
     public void insert(T x)
     {
-        root = insert(x, root, worldXmax, worldXmin, worldYmax, worldYmin); // this will need to be
-                                                  // changed
+        root = insert(x, root, worldXmax, worldXmin, worldYmax, worldYmin);
     }
-    
 
     public boolean find(T x)
     {
         return find(x, root, worldXmax, worldXmin, worldYmax, worldYmin);
     }
-    
+
     /**
      * is the PR QuadTree Empty
      * 
@@ -292,21 +290,22 @@ public class PrQuadTree<T extends NewComparable<? super T>>
         }
         else
         {
-            PRnode<T> hold = delete(x, root, worldXmax, worldXmin, worldYmax, worldYmin); // returns null
-                                                                // if not found
+            PRnode<T> hold = delete(x, root, worldXmax, worldXmin, worldYmax,
+                            worldYmin); // returns null
+            // if not found
             if (hold != null)
             {
                 root = hold;
                 if (root.getClass().getName().equals("PrQuadTree$prEmpty"))
                 {
-                	root = null;
+                    root = null;
                 }
                 return true;
             }
-            return false; // 
+            return false; //
         }
     }
-    
+
     /**
      * Remove the specified value from the tree.
      *
@@ -319,7 +318,7 @@ public class PrQuadTree<T extends NewComparable<? super T>>
     {
         root = remove(x, root);
     }
-    
+
     /**
      * This method will return the root of the current tree.
      * 
@@ -329,10 +328,6 @@ public class PrQuadTree<T extends NewComparable<? super T>>
     {
         return root;
     }
-    
-    
-    
-    
 
     private PRnode<T> delete(T x, PRnode<T> node, int max_x, int min_x,
                     int max_y, int min_y)
@@ -413,13 +408,15 @@ public class PrQuadTree<T extends NewComparable<? super T>>
             }
             else if ((x.compareToX(mid_x) >= 0) && (x.compareToY(mid_y) == -1))
             { // quadrant 4
-                if (((prInternal) node).getSE().getClass().getName().equals("PrQuadTree$prEmpty"))
+                if (((prInternal) node).getSE().getClass().getName()
+                                .equals("PrQuadTree$prEmpty"))
                 {
                     return null;
                 }
                 else
                 {
-                    PRnode<T> holder = delete(x, ((prInternal) node).getSE(), max_x, mid_x, mid_y, min_y);
+                    PRnode<T> holder = delete(x, ((prInternal) node).getSE(),
+                                    max_x, mid_x, mid_y, min_y);
                     holder = getChild(holder);
                     if (holder != null)
                     {
@@ -468,19 +465,31 @@ public class PrQuadTree<T extends NewComparable<? super T>>
         else if (node.getClass().getName().equals("PrQuadTree$prInternal"))
         {
             int i = 0;
-            if ((((prInternal) node).getNE().getClass().getName().equals("PrQuadTree$prLeaf"))||(((prInternal) node).getNE().getClass().getName().equals("PrQuadTree$prInternal")))
+            if ((((prInternal) node).getNE().getClass().getName()
+                            .equals("PrQuadTree$prLeaf"))
+                            || (((prInternal) node).getNE().getClass().getName()
+                                            .equals("PrQuadTree$prInternal")))
             {
                 i++;
             }
-            if ((((prInternal) node).getNW().getClass().getName().equals("PrQuadTree$prLeaf"))||(((prInternal) node).getNW().getClass().getName().equals("PrQuadTree$prInternal")))
+            if ((((prInternal) node).getNW().getClass().getName()
+                            .equals("PrQuadTree$prLeaf"))
+                            || (((prInternal) node).getNW().getClass().getName()
+                                            .equals("PrQuadTree$prInternal")))
             {
                 i++;
             }
-            if ((((prInternal) node).getSW().getClass().getName().equals("PrQuadTree$prLeaf"))||(((prInternal) node).getSW().getClass().getName().equals("PrQuadTree$prInternal")))
+            if ((((prInternal) node).getSW().getClass().getName()
+                            .equals("PrQuadTree$prLeaf"))
+                            || (((prInternal) node).getSW().getClass().getName()
+                                            .equals("PrQuadTree$prInternal")))
             {
                 i++;
             }
-            if ((((prInternal) node).getSE().getClass().getName().equals("PrQuadTree$prLeaf"))||(((prInternal) node).getSE().getClass().getName().equals("PrQuadTree$prInternal")))
+            if ((((prInternal) node).getSE().getClass().getName()
+                            .equals("PrQuadTree$prLeaf"))
+                            || (((prInternal) node).getSE().getClass().getName()
+                                            .equals("PrQuadTree$prInternal")))
             {
                 i++;
             }
@@ -490,21 +499,37 @@ public class PrQuadTree<T extends NewComparable<? super T>>
             }
             else if (i == 1) // one child
             {
-            	if ((((prInternal) node).getNE().getClass().getName().equals("PrQuadTree$prLeaf"))||(((prInternal) node).getNE().getClass().getName().equals("PrQuadTree$prInternal")))
+                if ((((prInternal) node).getNE().getClass().getName()
+                                .equals("PrQuadTree$prLeaf"))
+                                || (((prInternal) node).getNE().getClass()
+                                                .getName()
+                                                .equals("PrQuadTree$prInternal")))
                 {
-            		return ((prInternal) node).getNE();
+                    return ((prInternal) node).getNE();
                 }
-                if ((((prInternal) node).getNW().getClass().getName().equals("PrQuadTree$prLeaf"))||(((prInternal) node).getNW().getClass().getName().equals("PrQuadTree$prInternal")))
+                if ((((prInternal) node).getNW().getClass().getName()
+                                .equals("PrQuadTree$prLeaf"))
+                                || (((prInternal) node).getNW().getClass()
+                                                .getName()
+                                                .equals("PrQuadTree$prInternal")))
                 {
-                	return ((prInternal) node).getNW();
+                    return ((prInternal) node).getNW();
                 }
-                if ((((prInternal) node).getSW().getClass().getName().equals("PrQuadTree$prLeaf"))||(((prInternal) node).getSW().getClass().getName().equals("PrQuadTree$prInternal")))
+                if ((((prInternal) node).getSW().getClass().getName()
+                                .equals("PrQuadTree$prLeaf"))
+                                || (((prInternal) node).getSW().getClass()
+                                                .getName()
+                                                .equals("PrQuadTree$prInternal")))
                 {
-                	return ((prInternal) node).getSW();
+                    return ((prInternal) node).getSW();
                 }
-                if ((((prInternal) node).getSE().getClass().getName().equals("PrQuadTree$prLeaf"))||(((prInternal) node).getSE().getClass().getName().equals("PrQuadTree$prInternal")))
+                if ((((prInternal) node).getSE().getClass().getName()
+                                .equals("PrQuadTree$prLeaf"))
+                                || (((prInternal) node).getSE().getClass()
+                                                .getName()
+                                                .equals("PrQuadTree$prInternal")))
                 {
-                	return ((prInternal) node).getSE();
+                    return ((prInternal) node).getSE();
                 }
             }
             else // two or more children
@@ -541,7 +566,6 @@ public class PrQuadTree<T extends NewComparable<? super T>>
             return null;
         }
     }
-
 
     private boolean find(T x, PRnode<T> node, int max_x, int min_x, int max_y,
                     int min_y)

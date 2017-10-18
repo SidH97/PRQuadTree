@@ -1,4 +1,4 @@
-import java.awt.Rectangle;
+import java.util.Iterator;
 
 /**
  * This class is a work in progress. Once BST is imported it will work. Need to
@@ -11,66 +11,60 @@ import java.awt.Rectangle;
 public class Database
 {
     private PrQuadTree<Point> prTree;
+    private BST<Point> bstTree;
 
     public Database()
     {
         prTree = new PrQuadTree<Point>();
+        bstTree = new BST<Point>();
+
     }
 
     public void insertPoint(String name, int x, int y)
     {
-        Rectangle temp = new Rectangle(name, x, y, width, height);
+        Point temp = new Point(name, x, y);
         if (x >= 0 && y >= 0)
         {
-            if (width > 0 && height > 0)
+            if ((x <= 1024) && (y <= 1024))
             {
-                if ((x + width <= 1024) && (y + height <= 1024))
+                if (Character.isDigit(name.charAt(0)))
                 {
-                    if (Character.isDigit(name.charAt(0)))
-                    {
-                        System.out.println("Rectangle rejected: "
-                                        + temp.toString());
-                    }
-                    else
-                    {
-                        bst.insert(temp);
-                        System.out.println("Rectangle accepted: "
-                                        + temp.toString());
-                    }
+                    System.out.println("Point rejected: " + temp.toString());
                 }
                 else
                 {
-                    System.out.println(
-                                    "Rectangle rejected: " + temp.toString());
+                    bstTree.insert(temp);
+                    prTree.insert(temp);
+                    System.out.println("Point accepted: " + temp.toString());
                 }
             }
             else
             {
-                System.out.println("Rectangle rejected: " + temp.toString());
+                System.out.println("Point rejected: " + temp.toString());
             }
         }
         else
         {
-            System.out.println("Rectangle rejected: " + temp.toString());
+            System.out.println("Point rejected: " + temp.toString());
         }
+
     }
 
     public void removeBydimensions(int x, int y)
     {
         boolean found = false;
-        Rectangle holder = null;
-        Iterator<Rectangle> treeSearch = bst.iterator(); // creates first
-                                                         // iterator
+        Point holder = null;
+        Iterator<Point> treeSearch = bstTree.iterator(); // creates first
+        // iterator
         while (treeSearch.hasNext())
         { // goes through the tree once
             holder = treeSearch.next();
-            if (holder.xcord == x && holder.ycord == y
-                            && holder.recWidth == width
-                            && holder.recHeight == height)
+            if (holder.xcord == x && holder.ycord == y)
             {
                 try
                 {
-                    bst.remove(holder); // remove rectangle here
+                    bstTree.remove(holder);
+                    prTree.remove(holder); // remove rectangle here
                     found = true;
                     break;
                 }
@@ -82,25 +76,25 @@ public class Database
         }
         if (!found)
         {
-            System.out.println("Rectangle rejected (" + x + ", " + y + ", "
-                            + width + ", " + height + ")");
+            System.out.println("Point rejected (" + x + ", " + y + ")");
         }
     }
 
     public void removeByName(String word)
     {
         boolean found = false;
-        Rectangle searchRec = new Rectangle(name, 1, 1, 1, 1);
-        Iterator<Rectangle> treeSearch = bst.iterator(); // creates first
+        Point searchRec = new Point(word, 1, 1);
+        Iterator<Point> treeSearch = bstTree.iterator(); // creates first
                                                          // iterator
         while (treeSearch.hasNext())
         { // goes through the tree once
-            Rectangle holder = treeSearch.next();
+            Point holder = treeSearch.next();
             if (holder.compareTo(searchRec) == 0)
             {
                 try
                 {
-                    bst.remove(holder); // remove rectangle here
+                    bstTree.remove(holder);
+                    prTree.remove(holder); // remove rectangle here
                     found = true;
                     break;
                 }
@@ -112,7 +106,7 @@ public class Database
         }
         if (!found)
         {
-            System.out.println("Rectangle rejected " + name);
+            System.out.println("Point rejected " + word);
         }
 
     }
@@ -131,19 +125,7 @@ public class Database
      */
     public void regionSearch(int x, int y, int width, int height)
     {
-        System.out.println("Rectangles intersecting region(" + x + ", " + y
-                        + ", " + width + ", " + height + "):");
-        Rectangle region = new Rectangle("region", x, y, width, height);
-        Iterator<Rectangle> treeSearch = bst.iterator();
-        while (treeSearch.hasNext())
-        {
-            Rectangle holder = treeSearch.next();
-            if (holder.checkRegion(region))
-            {
-                System.out.println(holder.toString());
-            }
-        }
-
+        // TODO Auto-generated method stub
     }
 
     /**
@@ -155,21 +137,21 @@ public class Database
     public void search(String name)
     {
         boolean found = false;
-        Rectangle searchRec = new Rectangle(name, 1, 1, 1, 1);
-        Iterator<Rectangle> treeSearch = bst.iterator(); // creates first
-                                                         // iterator
+        Point searchRec = new Point(name, 1, 1);
+        Iterator<Point> treeSearch = bstTree.iterator(); // creates first
+        // iterator
         while (treeSearch.hasNext())
         { // goes through the tree once
-            Rectangle holder = treeSearch.next();
+            Point holder = treeSearch.next();
             if (holder.name.equals(searchRec.name))
             {
-                System.out.println("Rectangle found: " + holder.toString());
+                System.out.println("Point found: " + holder.toString());
                 found = true;
             }
         }
         if (!found)
         {
-            System.out.println("Rectangle not found: " + searchRec.name);
+            System.out.println("Point not found: " + searchRec.name);
         }
     }
 

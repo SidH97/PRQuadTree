@@ -1,0 +1,23 @@
+remove a
+intersections
+insert a 10 10 5 5 
+insert b 15 10 5 5
+insert c 14 10 5 5
+insert 1 2 3 4 
+insert d 11 11 11 11
+insert e 11 11 2 2
+insert f 9 9 2 3
+insert g 3 3 1 1 
+insert h 1 4 8 2
+insert i 17 67 3 3
+insert j 9 14 2 2 
+insert k 10 10 5 5
+insert l 9 11 5 5
+insert m 9 5 2 2
+insert n 9 17 5 5 
+insert o 17 11 5 5
+insert p 11 27 5 5
+insert q 11 3 5 5
+insert r3 200 120 150 100
+insert val2 220 100 50 20
+intersections
