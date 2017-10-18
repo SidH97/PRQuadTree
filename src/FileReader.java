@@ -119,7 +119,7 @@ public class FileReader
                 }
                 else if (command.equals("dump"))
                 {
-                    // TO DO
+                    dbase.dump();
                 }
                 else
                 {

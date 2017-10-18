@@ -29,23 +29,23 @@ public class Database
             {
                 if (Character.isDigit(name.charAt(0)))
                 {
-                    System.out.println("Point rejected: " + temp.toString());
+                    System.out.println("Point Rejected: " + temp.toString());
                 }
                 else
                 {
                     bstTree.insert(temp);
                     prTree.insert(temp);
-                    System.out.println("Point accepted: " + temp.toString());
+                    System.out.println("Point Inserted: " + temp.toString());
                 }
             }
             else
             {
-                System.out.println("Point rejected: " + temp.toString());
+                System.out.println("Point Rejected: " + temp.toString());
             }
         }
         else
         {
-            System.out.println("Point rejected: " + temp.toString());
+            System.out.println("Point Rejected: " + temp.toString());
         }
 
     }
@@ -76,7 +76,7 @@ public class Database
         }
         if (!found)
         {
-            System.out.println("Point rejected (" + x + ", " + y + ")");
+            System.out.println("Point Rejected: (" + x + ", " + y + ")");
         }
     }
 
@@ -106,7 +106,7 @@ public class Database
         }
         if (!found)
         {
-            System.out.println("Point rejected " + word);
+            System.out.println("Point Rejected: " + word);
         }
 
     }
@@ -125,7 +125,7 @@ public class Database
      */
     public void regionSearch(int x, int y, int width, int height)
     {
-        // TODO Auto-generated method stub
+        System.out.println("Still working on regionsearch");
     }
 
     /**
@@ -157,7 +157,13 @@ public class Database
 
     public void duplicates()
     {
-        // TODO Auto-generated method stub
+        System.out.println("Still working on duplicate");
+
+    }
+
+    public void dump()
+    {
+        System.out.println("Still working on dump");
 
     }
 
