@@ -13,20 +13,20 @@
 public class BSTTest extends student.TestCase
 {
 
-    private BST<Rectangle> tree;
-    private Rectangle rec;
-    private Rectangle rec1;
-    private Rectangle rec2;
+    private BST<Point> tree;
+    private Point rec;
+    private Point rec1;
+    private Point rec2;
 
     /**
      * This method will setUp the testing Environment.
      */
     public void setUp()
     {
-        tree = new BST<Rectangle>();
-        rec = new Rectangle("baa", 1, 1, 1, 1);
-        rec1 = new Rectangle("aaa", 1, 1, 1, 1);
-        rec2 = new Rectangle("caa", 1, 1, 1, 1);
+        tree = new BST<Point>();
+        rec = new Point("baa", 1, 1);
+        rec1 = new Point("aaa", 1, 1);
+        rec2 = new Point("caa", 1, 1);
     }
 
     /**
