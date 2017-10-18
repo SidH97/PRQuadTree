@@ -580,29 +580,29 @@ public class PrQuadTree<T extends NewComparable<? super T>>
     }
     
     
-    /**
-     * public for testing
-     * this will not work 
-     */
-    public int inOrder(PRnode<T> t, int depth)
-    {
-    	int i = 0;
-    	int j = 0;
-    	int k = 0;
-    	int l = 0;
-    	int m = depth;
-    	if (!t.getClass().getName().equals("PrQuadTree$prEmpty"))
-    	{
-    		i = inOrder(((prInternal) t).getSW(), depth + 1);
-    		j = inOrder(((prInternal) t).getSE(), depth + 1);
-    		if (t.getClass().getName().equals("PrQuadTree$prLead")){
-    			System.out.println("Node has depth " + depth + ", Value " + ((prLeaf) t).getData().toString());
-    			//this is also wrong
-    		}
-    		k = inOrder(((prInternal) t).getNW(), depth + 1);
-    		l = inOrder(((prInternal) t).getNE(), depth + 1);
-    	}
-    	return Math.max(m, Math.max(Math.max(i, j), Math.max(k, l)));
-    }
+//    /**
+//     * public for testing
+//     * this will not work 
+//     */
+//    public int inOrder(PRnode<T> t, int depth)
+//    {
+//    	int i = 0;
+//    	int j = 0;
+//    	int k = 0;
+//    	int l = 0;
+//    	int m = depth;
+//    	if (!t.getClass().getName().equals("PrQuadTree$prEmpty"))
+//    	{
+//    		i = inOrder(((prInternal) t).getSW(), depth + 1);
+//    		j = inOrder(((prInternal) t).getSE(), depth + 1);
+//    		if (t.getClass().getName().equals("PrQuadTree$prLead")){
+//    			System.out.println("Node has depth " + depth + ", Value " + ((prLeaf) t).getData().toString());
+//    			//this is also wrong
+//    		}
+//    		k = inOrder(((prInternal) t).getNW(), depth + 1);
+//    		l = inOrder(((prInternal) t).getNE(), depth + 1);
+//    	}
+//    	return Math.max(m, Math.max(Math.max(i, j), Math.max(k, l)));
+//    }
 
 }
