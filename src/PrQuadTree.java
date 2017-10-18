@@ -582,5 +582,70 @@ public class PrQuadTree<T extends NewComparable<? super T>>
         }
         return false;
     }
+    
+    public void dump()
+    {
+    	dump(root, worldXmax, worldXmin, worldYmax, worldYmin);
+    }
+    
+    private void dump(PRnode<T> node, int max_x, int min_x, int max_y, int min_y) 
+    {
+    	//to do
+    }
+    
+    public void regionSearch(int max_x, int min_x, int max_y, int min_y)
+    {
+    	regionSearch(root, max_x, min_x, max_y, min_y);
+    }
+    
+    private PRnode<T> regionSearch(PRnode<T> node, int max_x, int min_x, int max_y, int min_y)
+    {
+        if (node == null)
+        {
+            return null; // Not found
+        }
+        else if (node.getClass().getName().equals("PrQuadTree$prLeaf"))
+        {
+            ArrayList<T> temp = ((prLeaf) node).getData();
+            while(temp.size() != 0)
+            {
+            	if((temp.get(0).compareToX(max_x) <= 0)&&
+            			(temp.get(0).compareToX(min_x) >= 0)&&
+            			(temp.get(0).compareToY(max_x) <= 0)&&
+            			(temp.get(0).compareToY(min_x) >= 0))
+            	{
+            		temp.get(0).toString();
+            	}
+            	temp.remove(0);
+            }
+            return node;
+        }
+        else if (node.getClass().getName().equals("PrQuadTree$prInternal"))
+        {
+            int mid_x = (min_x + max_x) / 2;
+            int mid_y = (min_y + max_y) / 2;
+            if ((x.compareToX(mid_x) <= 0) && (x.compareToY(mid_y) == 1))
+            { // quadrant 2
+                return regionSearch(((prInternal) node).getNW(), mid_x, min_x, max_y,
+                                mid_y);
+            }
+            else if ((x.compareToX(mid_x) == -1) && (x.compareToY(mid_y) <= 0))
+            { // quadrant 3
+                return regionSearch(((prInternal) node).getSW(), mid_x, min_x, mid_y,
+                                min_y);
+            }
+            else if ((x.compareToX(mid_x) >= 0) && (x.compareToY(mid_y) == -1))
+            { // quadrant 4
+                return regionSearch(((prInternal) node).getSE(), max_x, mid_x, mid_y,
+                                min_y);
+            }
+            else
+            { // quadrant 1
+                return regionSearch(((prInternal) node).getNE(), max_x, mid_x, max_y,
+                                mid_y);
+            }
+        }
+        return null;
+    }
 
 }
