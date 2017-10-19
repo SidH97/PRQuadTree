@@ -180,7 +180,8 @@ public class PrQuadTree<T extends NewComparable<? super T>>
     {
         if (node == null) // root is null or internal node is null
         {
-            return new prLeaf(x);
+            node = new prLeaf(x);
+            return node;
         }
         else if (node.getClass().getName().equals("PrQuadTree$prLeaf"))
         { // is a leaf node or empty
@@ -648,7 +649,6 @@ public class PrQuadTree<T extends NewComparable<? super T>>
         else if (node.getClass().getName().equals("PrQuadTree$prLeaf"))
         {
             ArrayList<T> temp = ((prLeaf) node).getData();
-            System.out.println(temp.toString());
             for (int i = 0; i < temp.size(); i++)
             {
                 if ((temp.get(i).compareToX(regionMax_x) <= 0)
