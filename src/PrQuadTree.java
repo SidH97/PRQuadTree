@@ -744,7 +744,7 @@ public class PrQuadTree<T extends NewComparable<? super T>>
                 {
                     if (temp.get(i).equals(temp.get(j)))
                     {
-                        System.out.println(temp.get(i).toString());
+                        System.out.println(temp.get(i).toStringNoName());
                         return node;
                     }
                 }
