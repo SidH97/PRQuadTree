@@ -1,0 +1,7 @@
+insert r_r          1 20
+insert rec        10 30
+insert r_42   1 20
+regionsearch 0 0 1024 1024
+remove 10 30
+search r_r
+search rec
