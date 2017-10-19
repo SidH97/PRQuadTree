@@ -32,7 +32,7 @@ public class PrQuadTreeTest extends student.TestCase
     public void setUp()
     {
         tree = new PrQuadTree<Point>();
-        point = new Point("point", 1, 1);
+        point = new Point("point", 1000, 250);
         point1 = new Point("point1", 10, 10);
         point2 = new Point("point2", 100, 100);
         point3 = new Point("point3", 0, 100);
@@ -132,9 +132,9 @@ public class PrQuadTreeTest extends student.TestCase
         System.out.println("new print");
         tree.regionSearch(1024, 0, 1024, 0);
         assertTrue(tree.find(point4));
-//        assertTrue(tree.find(point5));
-//        assertTrue(tree.find(point6));
-//        assertTrue(tree.find(point7));
+        assertTrue(tree.find(point5));
+        assertTrue(tree.find(point6));
+        assertTrue(tree.find(point7));
         //I believe that the whole tree is just point4
 //        assertTrue(tree.isEmpty());
 //        assertTrue(tree.find(pointNW));
