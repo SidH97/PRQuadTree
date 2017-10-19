@@ -82,11 +82,11 @@ public class PrQuadTreeTest extends student.TestCase
         assertTrue(tree.find(point5));
         assertTrue(tree.find(point6));
         assertTrue(tree.find(point7));
-     }
+    }
 
     public void testDelete()
     {
-    	assertFalse(tree.delete(point));
+        assertFalse(tree.delete(point));
         assertTrue(tree.isEmpty());
         tree.insert(point);
         assertFalse(tree.delete(point2));
@@ -106,7 +106,7 @@ public class PrQuadTreeTest extends student.TestCase
         assertTrue(tree.find(point8));
         assertTrue(tree.delete(point8));
         assertFalse(tree.find(point8));
-        
+
         tree = new PrQuadTree<Point>();
         assertTrue(tree.isEmpty());
         tree.insert(pointNE);
@@ -132,21 +132,22 @@ public class PrQuadTreeTest extends student.TestCase
         System.out.println("new print");
         tree.regionSearch(1024, 0, 1024, 0);
         assertTrue(tree.find(point4));
-//        assertTrue(tree.find(point5));
-//        assertTrue(tree.find(point6));
-//        assertTrue(tree.find(point7));
-        //I believe that the whole tree is just point4
-//        assertTrue(tree.isEmpty());
-//        assertTrue(tree.find(pointNW));
-//        assertTrue(tree.delete(pointNW));
-//        assertTrue(tree.delete(pointSW));
-//        assertTrue(tree.delete(pointSE));
-        
+        // assertTrue(tree.find(point5));
+        // assertTrue(tree.find(point6));
+        // assertTrue(tree.find(point7));
+        // I believe that the whole tree is just point4
+        // assertTrue(tree.isEmpty());
+        // assertTrue(tree.find(pointNW));
+        // assertTrue(tree.delete(pointNW));
+        // assertTrue(tree.delete(pointSW));
+        // assertTrue(tree.delete(pointSE));
+
         tree = new PrQuadTree<Point>();
         tree.insert(point4);
         tree.insert(pointNE);
         assertTrue(tree.delete(pointNE));
         assertTrue(tree.find(point4));
+        assertFalse(tree.find(pointNE));
     }
 
     public void testInOrder()
@@ -160,6 +161,25 @@ public class PrQuadTreeTest extends student.TestCase
         tree.insert(point4);
         tree.insert(point5);
         tree.insert(point6);
+    }
+
+    public void testRegionSearch()
+    {
+        System.out.println("NEW");
+        tree.insert(point);
+        tree.insert(point1);
+        tree.insert(point2);
+        tree.insert(point3);
+        tree.insert(point4);
+        tree.insert(point5);
+        tree.insert(point6);
+        tree.insert(point7);
+        tree.insert(point8);
+        tree.insert(pointNE);
+        tree.insert(pointNW);
+        tree.insert(pointSW);
+        tree.insert(pointSE);
+        tree.regionSearch(1024, 512, 512, 0);
     }
 
 }
