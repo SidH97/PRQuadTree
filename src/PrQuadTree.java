@@ -669,8 +669,8 @@ public class PrQuadTree<T extends NewComparable<? super T>>
             {
                 if ((temp.get(i).compareToX(regionMax_x) <= 0)
                                 && (temp.get(i).compareToX(regionMin_x) >= 0)
-                                && (temp.get(i).compareToY(regionMax_x) <= 0)
-                                && (temp.get(i).compareToY(regionMin_x) >= 0))
+                                && (temp.get(i).compareToY(regionMax_y) <= 0)
+                                && (temp.get(i).compareToY(regionMin_y) >= 0))
                 {
                     System.out.println(temp.get(i).toString());
                 }
@@ -681,25 +681,25 @@ public class PrQuadTree<T extends NewComparable<? super T>>
         {
             int mid_x = (min_x + max_x) / 2;
             int mid_y = (min_y + max_y) / 2;
-            if ((regionMin_x <= mid_x) && (regionMax_y > mid_y))
+            if ((regionMin_x <= mid_x) && (regionMin_y < mid_y))
             { // quadrant 2
                 regionSearch(((prInternal) node).getNW(), mid_x, min_x, mid_y,
                                 min_y, regionMax_x, regionMin_x, regionMax_y,
                                 regionMin_y);
             }
-            if ((regionMin_x < mid_x) && (regionMin_y <= mid_y))
+            if ((regionMin_x < mid_x) && (regionMax_y >= mid_y))
             { // quadrant 3
                 regionSearch(((prInternal) node).getSW(), mid_x, min_x, max_y,
                                 mid_y, regionMax_x, regionMin_x, regionMax_y,
                                 regionMin_y);
             }
-            if ((regionMax_x >= mid_x) && (regionMax_y < mid_y))
+            if ((regionMax_x >= mid_x) && (regionMax_y > mid_y))
             { // quadrant 4
                 regionSearch(((prInternal) node).getSE(), max_x, mid_x, max_y,
                                 mid_y, regionMax_x, regionMin_x, regionMax_y,
                                 regionMin_y);
             }
-            if ((regionMax_x >= mid_x) && (regionMax_y >= mid_y))
+            if ((regionMax_x >= mid_x) && (regionMin_y < mid_y))
             { // quadrant 1
                 regionSearch(((prInternal) node).getNE(), max_x, mid_x, mid_y,
                                 min_y, regionMax_x, regionMin_x, regionMax_y,
