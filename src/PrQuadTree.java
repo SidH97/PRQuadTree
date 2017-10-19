@@ -648,18 +648,18 @@ public class PrQuadTree<T extends NewComparable<? super T>>
         else if (node.getClass().getName().equals("PrQuadTree$prLeaf"))
         {
             ArrayList<T> temp = ((prLeaf) node).getData();
-            // while (temp.size() != 0)
-            // {
-            // if ((temp.get(0).compareToX(regionMax_x) <= 0)
-            // && (temp.get(0).compareToX(regionMin_x) >= 0)
-            // && (temp.get(0).compareToY(regionMax_x) <= 0)
-            // && (temp.get(0).compareToY(regionMin_x) >= 0))
-            // {
-            System.out.println(temp.get(2).toString());
-            // }
-            temp.remove(0);
-            // }
-            return node;
+            System.out.println(temp.toString());
+            for (int i = 0; i < temp.size(); i++)
+            {
+                if ((temp.get(i).compareToX(regionMax_x) <= 0)
+                                && (temp.get(i).compareToX(regionMin_x) >= 0)
+                                && (temp.get(i).compareToY(regionMax_x) <= 0)
+                                && (temp.get(i).compareToY(regionMin_x) >= 0))
+                {
+                    System.out.println(temp.get(i).toString());
+                }
+            }
+            return null;
         }
         else if (node.getClass().getName().equals("PrQuadTree$prInternal"))
         {
