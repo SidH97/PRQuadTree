@@ -158,7 +158,7 @@ public class Database
     {
         boolean found = false;
         Point searchRec = new Point(name, 1, 1);
-        Iterator<Point> treeSearch = bstTree.iterator(); // creates first
+        Iterator<Point> treeSearch = bstTree.iterator(); // creates firs
         // iterator
         while (treeSearch.hasNext())
         { // goes through the tree once
