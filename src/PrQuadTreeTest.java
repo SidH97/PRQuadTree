@@ -215,7 +215,7 @@ public class PrQuadTreeTest extends student.TestCase
         tree.insert(point1);
         tree.delete(point1);
         tree.delete(point1);
-        tree.regionSearch(1024, 0, 1024, 0);
+        tree.duplicateFind();
     }
 
     public void testRemove1()

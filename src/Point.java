@@ -104,4 +104,10 @@ public class Point implements Comparable<Point>, NewComparable<Point>
         return ((this.getX() == ct.getX()) && (this.getY() == ct.getY()));
     }
 
+    @Override
+    public String toStringNoName()
+    {
+        return "(" + xcord + ", " + ycord + ")";
+    }
+
 }
