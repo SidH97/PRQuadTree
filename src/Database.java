@@ -177,7 +177,8 @@ public class Database
 
     public void duplicates()
     {
-        System.out.println("Still working on duplicate");
+        System.out.println("Duplicate Points:");
+        prTree.duplicateFind();
 
     }
 
