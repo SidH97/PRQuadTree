@@ -273,7 +273,8 @@ public class PrQuadTree<T extends NewComparable<? super T>>
         }
         else
         {
-        	//need to fix this =======================================================================================
+            // need to fix this
+            // =======================================================================================
             System.out.println("Insert Fucked up");
             return node;
         }
@@ -318,7 +319,8 @@ public class PrQuadTree<T extends NewComparable<? super T>>
     {
         if (node == null)
         {
-        	//need to fix this also ===================================================================
+            // need to fix this also
+            // ===================================================================
             return null;
         }
         else if (node.getClass().getName().equals("PrQuadTree$prLeaf"))
