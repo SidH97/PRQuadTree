@@ -333,14 +333,12 @@ public class PrQuadTree<T extends NewComparable<? super T>>
                 if (((prLeaf) node).getData().size() == 1) // the data is the
                                                            // only element
                 {
-                    ((prLeaf) node).remove(x); // NOT CHECKING IF IT ACTUALLY
-                                               // GETS REMOVED
+                    ((prLeaf) node).remove(x);
                     return new prEmpty(); // returns empty node recursively
                 }
                 else // the data is not the only element
                 {
-                    ((prLeaf) node).remove(x); // NOT CHECKING IF IT ACTUALLY
-                                               // GETS REMOVED
+                    ((prLeaf) node).remove(x);
                     return node; // returns leaf node
                 }
             }
@@ -397,7 +395,8 @@ public class PrQuadTree<T extends NewComparable<? super T>>
                 {
                     return null;
                 }
-                else
+                else if (((prInternal) node).getSW().getClass().getName()
+                        .equals("PrQuadTree$prInternal"))
                 {
                     PRnode<T> holder = delete(x, ((prInternal) node).getSW(),
                                     mid_x, min_x, max_y, mid_y);
@@ -408,6 +407,18 @@ public class PrQuadTree<T extends NewComparable<? super T>>
                     }
                     return holder;
                 }
+                else if (((prInternal) node).getSW().getClass().getName()
+                        .equals("PrQuadTree$prLeaf")) // is leaf
+                {
+                	PRnode<T> holder = delete(x, ((prInternal) node).getSW(), mid_x, min_x, max_y, mid_y);
+                	holder = getChild(holder);
+                	if (holder != null) // checks not null before setting the
+                	// new child
+                	{
+                		return node;
+                	}
+                	return null;
+                }
 
             }
             else if ((x.compareToX(mid_x) >= 0) && (x.compareToY(mid_y) == 1))
@@ -417,7 +428,8 @@ public class PrQuadTree<T extends NewComparable<? super T>>
                 {
                     return null;
                 }
-                else
+                else if (((prInternal) node).getSE().getClass().getName()
+                                .equals("PrQuadTree$prInternal"))
                 {
                     PRnode<T> holder = delete(x, ((prInternal) node).getSE(),
                                     max_x, mid_x, max_y, mid_y);
@@ -427,6 +439,18 @@ public class PrQuadTree<T extends NewComparable<? super T>>
                         ((prInternal) node).setSE(holder);
                     }
                     return holder;
+                }
+                else if (((prInternal) node).getSE().getClass().getName()
+                        .equals("PrQuadTree$prLeaf")) // is leaf
+                {
+                	PRnode<T> holder = delete(x, ((prInternal) node).getSE(), max_x, mid_x, max_y, mid_y);
+                	holder = getChild(holder);
+                	if (holder != null) // checks not null before setting the
+                	// new child
+                	{
+                		return node;
+                	}
+                	return null;
                 }
 
             }
@@ -439,7 +463,8 @@ public class PrQuadTree<T extends NewComparable<? super T>>
                 {
                     return null;
                 }
-                else
+                else if (((prInternal) node).getNE().getClass().getName()
+                        .equals("PrQuadTree$prInternal"))
                 {
                     PRnode<T> holder = delete(x, ((prInternal) node).getNE(),
                                     max_x, mid_x, mid_y, min_y);
@@ -450,7 +475,18 @@ public class PrQuadTree<T extends NewComparable<? super T>>
                     }
                     return holder;
                 }
-
+                else if (((prInternal) node).getNE().getClass().getName()
+                        .equals("PrQuadTree$prLeaf")) // is leaf
+                {
+                	PRnode<T> holder = delete(x, ((prInternal) node).getNE(), max_x, mid_x, mid_y, min_y);
+                	holder = getChild(holder);
+                	if (holder != null) // checks not null before setting the
+                	// new child
+                	{
+                		return node;
+                	}
+                	return null;
+                }
             }
 
         }
