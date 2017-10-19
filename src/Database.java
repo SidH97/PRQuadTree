@@ -64,7 +64,7 @@ public class Database
                 try
                 {
                     bstTree.remove(holder);
-                    prTree.remove(holder); // remove rectangle here
+                    prTree.delete(holder); // remove rectangle here
                     found = true;
                     break;
                 }
@@ -94,7 +94,7 @@ public class Database
                 try
                 {
                     bstTree.remove(holder);
-                    prTree.remove(holder); // remove rectangle here
+                    prTree.delete(holder); // remove rectangle here
                     found = true;
                     break;
                 }
@@ -125,7 +125,27 @@ public class Database
      */
     public void regionSearch(int x, int y, int width, int height)
     {
-        System.out.println("Still working on regionsearch");
+        if (x >= 0 && y >= 0 && width > 0 && height > 0)
+        {
+            if (x + width <= 1024 && y + height <= 1024)
+            {
+                System.out.println("Points Intersecting Region: (" + x + ", "
+                                + y + ", " + width + ", " + height + ")");
+                prTree.regionSearch((x + width), x, (y + height), y);
+                System.out.println("X QuadTree Nodes Visited");
+            }
+            else
+            {
+                System.out.println("Invalid Region: (" + x + ", " + y + ", "
+                                + width + ", " + height + ")");
+            }
+        }
+        else
+        {
+            System.out.println("Invalid Region: (" + x + ", " + y + ", " + width
+                            + ", " + height + ")");
+        }
+
     }
 
     /**
