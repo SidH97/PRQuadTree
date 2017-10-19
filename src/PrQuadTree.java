@@ -294,15 +294,14 @@ public class PrQuadTree<T extends NewComparable<? super T>>
         else
         {
             PRnode<T> hold = delete(x, root, worldXmax, worldXmin, worldYmax,
-                            worldYmin); // returns null
-            // if not found
+                            worldYmin); // returns null if not found
             if (hold != null)
             {
-                root = hold;
-                if (root.getClass().getName().equals("PrQuadTree$prEmpty"))
-                {
-                    root = null;
-                }
+//                root = hold;
+//                if (root.getClass().getName().equals("PrQuadTree$prEmpty"))
+//                {
+//                    root = null;
+//                }
                 return true;
             }
             return false; //
