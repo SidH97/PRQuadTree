@@ -43,6 +43,10 @@ public class BSTTest extends student.TestCase
         assertEquals(rec2, tree.find(rec2));
         tree.insert(rec);
         assertFalse(tree.isEmpty());
+        rec = new Point("ZZ", 2, 3);
+        tree.insert(rec);
+        tree.insert(rec);
+        assertEquals(rec, tree.find(rec));
     }
 
     /**
@@ -82,6 +86,21 @@ public class BSTTest extends student.TestCase
             out = e;
         }
         assertNotNull(out);
+        assertTrue(tree.isEmpty());
+        tree.insert(rec);
+        tree.insert(rec);
+        tree.insert(rec1);
+        tree.insert(rec2);
+        try
+        {
+        	tree.remove(rec2);
+        }
+        catch (Exception e)
+        {
+        	out = e;
+        }
+        
+        
     }
 
     /**
@@ -105,5 +124,4 @@ public class BSTTest extends student.TestCase
         tree.makeEmpty();
         assertTrue(tree.isEmpty());
     }
-
 }
