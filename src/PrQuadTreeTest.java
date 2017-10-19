@@ -209,20 +209,14 @@ public class PrQuadTreeTest extends student.TestCase
         tree.insert(point1);
         tree.insert(point1);
         tree.insert(point1);
-        tree.insert(point1);
-        tree.insert(point1);
-        tree.insert(point1);
-        tree.insert(point1);
-        tree.insert(point2);
-        tree.insert(point2);
-        tree.insert(point2);
-        tree.insert(point2);
-        tree.insert(point2);
         tree.insert(point2);
         tree.insert(point2);
         tree.insert(point2);
         tree.insert(pointNE);
         tree.insert(pointNE);
+        tree.delete(point1);
+        tree.delete(point1);
+        assertTrue(tree.find(point2));
         tree.duplicateFind();
     }
 
