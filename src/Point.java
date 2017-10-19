@@ -101,8 +101,7 @@ public class Point implements Comparable<Point>, NewComparable<Point>
      */
     public boolean equals(Point ct)
     {
-        return ((this.getX() == ct.getX()) && (this.getY() == ct.getY())
-                        && (this.getName().equals(ct.getName())));
+        return ((this.getX() == ct.getX()) && (this.getY() == ct.getY()));
     }
 
 }
