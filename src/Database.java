@@ -184,6 +184,15 @@ public class Database
 
     public void dump()
     {
+        bstTree.dump();
+        Iterator<Point> numSearch = bstTree.iterator();
+        int size = 0;
+        while (numSearch.hasNext())
+        {
+            size++;
+            numSearch.next();
+        }
+        System.out.println("BST size is: " + size);
         System.out.println("Still working on dump");
 
     }

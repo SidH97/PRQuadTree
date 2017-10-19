@@ -49,13 +49,13 @@ public class PrQuadTree<T extends NewComparable<? super T>>
                 {
                     for (int j = i; j < data.size(); j++)
                     {
-                        if (!data.get(i).equals(data.get(j)))
+                        if (!data.get(i).sameXY(data.get(j)))
                         {
                             return false;
                         }
                     }
                 }
-                if (data.get(0).equals(theData))
+                if (data.get(0).sameXY(theData))
                 {
                     data.add(theData);
                     return true;
@@ -742,7 +742,7 @@ public class PrQuadTree<T extends NewComparable<? super T>>
             {
                 for (int j = i + 1; j < temp.size(); j++)
                 {
-                    if (temp.get(i).equals(temp.get(j)))
+                    if (temp.get(i).sameXY(temp.get(j)))
                     {
                         System.out.println(temp.get(i).toStringNoName());
                         return node;
