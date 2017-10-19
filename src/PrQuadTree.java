@@ -214,7 +214,7 @@ public class PrQuadTree<T extends NewComparable<? super T>>
         {
             int mid_x = (min_x + max_x) / 2;
             int mid_y = (min_y + max_y) / 2;
-            if ((x.compareToX(mid_x) <= 0) && (x.compareToY(mid_y) == 1))
+            if ((x.compareToX(mid_x) <= 0) && (x.compareToY(mid_y) == -1))
             { // quadrant 2
                 if (((prInternal) node).getNW().getClass().getName()
                                 .equals("PrQuadTree$prEmpty"))
@@ -229,7 +229,7 @@ public class PrQuadTree<T extends NewComparable<? super T>>
                 }
 
             }
-            else if ((x.compareToX(mid_x) == -1) && (x.compareToY(mid_y) <= 0))
+            else if ((x.compareToX(mid_x) == -1) && (x.compareToY(mid_y) >= 0))
             { // quadrant 3
                 if (((prInternal) node).getSW().getClass().getName()
                                 .equals("PrQuadTree$prEmpty"))
@@ -244,7 +244,7 @@ public class PrQuadTree<T extends NewComparable<? super T>>
                 }
 
             }
-            else if ((x.compareToX(mid_x) >= 0) && (x.compareToY(mid_y) == -1))
+            else if ((x.compareToX(mid_x) >= 0) && (x.compareToY(mid_y) == 1))
             { // quadrant 4
                 if (((prInternal) node).getSE().getClass().getName()
                                 .equals("PrQuadTree$prEmpty"))
@@ -350,7 +350,7 @@ public class PrQuadTree<T extends NewComparable<? super T>>
             int mid_x = (min_x + max_x) / 2;
             int mid_y = (min_y + max_y) / 2;
             // checks what quadrant the point falls into
-            if ((x.compareToX(mid_x) <= 0) && (x.compareToY(mid_y) == 1))
+            if ((x.compareToX(mid_x) <= 0) && (x.compareToY(mid_y) == -1))
             { // quadrant 2
                 if (((prInternal) node).getNW().getClass().getName()
                                 .equals("PrQuadTree$prEmpty")) // quadrant is
@@ -376,7 +376,7 @@ public class PrQuadTree<T extends NewComparable<? super T>>
                 }
 
             }
-            else if ((x.compareToX(mid_x) == -1) && (x.compareToY(mid_y) <= 0))
+            else if ((x.compareToX(mid_x) == -1) && (x.compareToY(mid_y) >= 0))
             { // quadrant 3
                 if (((prInternal) node).getSW().getClass().getName()
                                 .equals("PrQuadTree$prEmpty"))
@@ -396,7 +396,7 @@ public class PrQuadTree<T extends NewComparable<? super T>>
                 }
 
             }
-            else if ((x.compareToX(mid_x) >= 0) && (x.compareToY(mid_y) == -1))
+            else if ((x.compareToX(mid_x) >= 0) && (x.compareToY(mid_y) == 1))
             { // quadrant 4
                 if (((prInternal) node).getSE().getClass().getName()
                                 .equals("PrQuadTree$prEmpty"))
@@ -552,17 +552,17 @@ public class PrQuadTree<T extends NewComparable<? super T>>
         {
             int mid_x = (min_x + max_x) / 2;
             int mid_y = (min_y + max_y) / 2;
-            if ((x.compareToX(mid_x) <= 0) && (x.compareToY(mid_y) == 1))
+            if ((x.compareToX(mid_x) <= 0) && (x.compareToY(mid_y) == -1))
             { // quadrant 2
                 return find(x, ((prInternal) node).getNW(), mid_x, min_x, max_y,
                                 mid_y);
             }
-            else if ((x.compareToX(mid_x) == -1) && (x.compareToY(mid_y) <= 0))
+            else if ((x.compareToX(mid_x) == -1) && (x.compareToY(mid_y) >= 0))
             { // quadrant 3
                 return find(x, ((prInternal) node).getSW(), mid_x, min_x, mid_y,
                                 min_y);
             }
-            else if ((x.compareToX(mid_x) >= 0) && (x.compareToY(mid_y) == -1))
+            else if ((x.compareToX(mid_x) >= 0) && (x.compareToY(mid_y) == 1))
             { // quadrant 4
                 return find(x, ((prInternal) node).getSE(), max_x, mid_x, mid_y,
                                 min_y);
