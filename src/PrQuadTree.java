@@ -287,6 +287,7 @@ public class PrQuadTree<T extends NewComparable<? super T>>
 
     public boolean delete(T x)
     {
+
         if (isEmpty())
         {
             return false;
@@ -297,11 +298,11 @@ public class PrQuadTree<T extends NewComparable<? super T>>
                             worldYmin); // returns null if not found
             if (hold != null)
             {
-//                root = hold;
-//                if (root.getClass().getName().equals("PrQuadTree$prEmpty"))
-//                {
-//                    root = null;
-//                }
+                // root = hold;
+                // if (root.getClass().getName().equals("PrQuadTree$prEmpty"))
+                // {
+                // root = null;
+                // }
                 return true;
             }
             return false; //
@@ -323,8 +324,6 @@ public class PrQuadTree<T extends NewComparable<? super T>>
     {
         if (node == null)
         {
-            // need to fix this also
-            // ===================================================================
             return null;
         }
         else if (node.getClass().getName().equals("PrQuadTree$prLeaf"))
@@ -417,7 +416,9 @@ public class PrQuadTree<T extends NewComparable<? super T>>
                 }
 
             }
-            else
+            else if (((x.compareToX(mid_x) == 0) && (x.compareToY(mid_y) == 0))
+                            || ((x.compareToX(mid_x) > 0)
+                                            && (x.compareToY(mid_y) <= 0)))
             { // quadrant 1
                 if (((prInternal) node).getNE().getClass().getName()
                                 .equals("PrQuadTree$prEmpty"))
@@ -439,7 +440,6 @@ public class PrQuadTree<T extends NewComparable<? super T>>
             }
 
         }
-        // either reached an empty node or data was not found
         return null;
     }
 

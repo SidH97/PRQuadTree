@@ -41,10 +41,10 @@ public class PrQuadTreeTest extends student.TestCase
         point6 = new Point("point6", 0, 0);
         point7 = new Point("point7", 1024, 0);
         point8 = new Point("point8", 100, 0);
-        pointNE = new Point("pointSE", 1000, 1000);
-        pointNW = new Point("pointSW", 24, 1000);
-        pointSW = new Point("pointNW", 24, 24);
-        pointSE = new Point("pointNE", 1000, 24);
+        pointNE = new Point("pointNE", 1000, 1000);
+        pointNW = new Point("pointNW", 24, 1000);
+        pointSW = new Point("pointSW", 24, 24);
+        pointSE = new Point("pointSE", 1000, 24);
 
     }
 
@@ -149,8 +149,6 @@ public class PrQuadTreeTest extends student.TestCase
         tree.insert(pointSW);
         assertTrue(tree.delete(pointSE));
         tree.insert(pointSE);
-        
-
 
         System.out.println("new print");
         tree.regionSearch(1024, 0, 1024, 0);
@@ -176,7 +174,6 @@ public class PrQuadTreeTest extends student.TestCase
         // assertTrue(tree.delete(pointSW));
         // assertTrue(tree.delete(pointSE));
 
-
         tree = new PrQuadTree<Point>();
         tree.insert(point4);
         tree.insert(pointNE);
@@ -187,9 +184,9 @@ public class PrQuadTreeTest extends student.TestCase
 
     public void testFindRoot()
     {
-    	assertNull(tree.findRoot());
-    	tree.insert(point);
-    	assertNotNull(tree.findRoot());
+        assertNull(tree.findRoot());
+        tree.insert(point);
+        assertNotNull(tree.findRoot());
     }
 
     public void testRegionSearch()
@@ -214,16 +211,34 @@ public class PrQuadTreeTest extends student.TestCase
     public void testDupes()
     {
         System.out.println("DUPES");
-        tree.insert(point);
+        tree.insert(point1);
+        tree.insert(point1);
+        tree.insert(point1);
+        tree.insert(point1);
+        tree.insert(point1);
+        tree.insert(point1);
         tree.insert(point1);
         tree.insert(point2);
         tree.insert(point2);
         tree.insert(point2);
+        tree.insert(point2);
+        tree.insert(point2);
+        tree.insert(point2);
+        tree.insert(point2);
+        tree.insert(point2);
+        tree.insert(pointNE);
+        tree.insert(pointNE);
         tree.duplicateFind();
-        System.out.println("DUPESPt2");
+    }
+
+    public void testRemove1()
+    {
+        tree.insert(point);
+        tree.insert(point);
+        tree.insert(point);
+        tree.insert(point1);
         tree.delete(point1);
-        tree.delete(point2);
-        tree.duplicateFind();
+        assertTrue(tree.find(point));
     }
 
 }
