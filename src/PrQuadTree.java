@@ -400,7 +400,7 @@ public class PrQuadTree<T extends NewComparable<? super T>>
                 {
                     PRnode<T> holder = delete(x, ((prInternal) node).getSW(),
                                     mid_x, min_x, max_y, mid_y);
-                    // holder = getChild(holder);
+                    holder = getChild(holder);
                     if (holder != null)
                     {
                         ((prInternal) node).setSW(holder);
@@ -434,7 +434,7 @@ public class PrQuadTree<T extends NewComparable<? super T>>
                 {
                     PRnode<T> holder = delete(x, ((prInternal) node).getSE(),
                                     max_x, mid_x, max_y, mid_y);
-                    // holder = getChild(holder);
+                    holder = getChild(holder);
                     if (holder != null)
                     {
                         ((prInternal) node).setSE(holder);
@@ -470,7 +470,7 @@ public class PrQuadTree<T extends NewComparable<? super T>>
                 {
                     PRnode<T> holder = delete(x, ((prInternal) node).getNE(),
                                     max_x, mid_x, mid_y, min_y);
-                    // holder = getChild(holder);
+                    holder = getChild(holder);
                     if (holder != null)
                     {
                         ((prInternal) node).setNE(holder);

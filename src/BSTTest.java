@@ -1,3 +1,5 @@
+import java.util.Iterator;
+
 /**
  * 
  */
@@ -161,4 +163,16 @@ public class BSTTest extends student.TestCase
         assertEquals(point5, tree.find(point5));
         assertEquals(point6, tree.find(point6));
     }
+
+    public void testDump()
+    {
+        tree.dump();
+        assertTrue(tree.isEmpty());
+        Iterator<Point> treeSearch = tree.iterator();
+        assertFalse(treeSearch.hasNext());
+        tree.insert(rec1);
+        treeSearch = tree.iterator();
+        assertTrue(treeSearch.hasNext());
+    }
+
 }
