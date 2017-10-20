@@ -49,13 +49,13 @@ public class PrQuadTree<T extends NewComparable<? super T>>
                 {
                     for (int j = i; j < data.size(); j++)
                     {
-                        if (!data.get(i).equals(data.get(j)))
+                        if (!data.get(i).sameXY(data.get(j)))
                         {
                             return false;
                         }
                     }
                 }
-                if (data.get(0).equals(theData))
+                if (data.get(0).sameXY(theData))
                 {
                     data.add(theData);
                     return true;
@@ -333,14 +333,12 @@ public class PrQuadTree<T extends NewComparable<? super T>>
                 if (((prLeaf) node).getData().size() == 1) // the data is the
                                                            // only element
                 {
-                    ((prLeaf) node).remove(x); // NOT CHECKING IF IT ACTUALLY
-                                               // GETS REMOVED
+                    ((prLeaf) node).remove(x);
                     return new prEmpty(); // returns empty node recursively
                 }
                 else // the data is not the only element
                 {
-                    ((prLeaf) node).remove(x); // NOT CHECKING IF IT ACTUALLY
-                                               // GETS REMOVED
+                    ((prLeaf) node).remove(x);
                     return node; // returns leaf node
                 }
             }
@@ -358,7 +356,8 @@ public class PrQuadTree<T extends NewComparable<? super T>>
                 {
                     return null; // recursively returns null
                 }
-                else
+                else if (((prInternal) node).getNW().getClass().getName()
+                                .equals("PrQuadTree$prInternal"))
                 {
                     PRnode<T> holder = delete(x, ((prInternal) node).getNW(),
                                     mid_x, min_x, mid_y, min_y); // recursively
@@ -366,13 +365,26 @@ public class PrQuadTree<T extends NewComparable<? super T>>
                                                                  // on the
                                                                  // quadrant
                     holder = getChild(holder); // gets the correct child from
-                                               // helper method
+                    // helper method
                     if (holder != null) // checks not null before setting the
                                         // new child
                     {
                         ((prInternal) node).setNW(holder);
                     }
                     return holder; // returns the child
+                }
+                else if (((prInternal) node).getNW().getClass().getName()
+                                .equals("PrQuadTree$prLeaf")) // is leaf
+                {
+                    PRnode<T> holder = delete(x, ((prInternal) node).getNW(),
+                                    mid_x, min_x, mid_y, min_y);
+                    holder = getChild(holder);
+                    if (holder != null) // checks not null before setting the
+                    // new child
+                    {
+                        return node;
+                    }
+                    return null;
                 }
 
             }
@@ -383,16 +395,30 @@ public class PrQuadTree<T extends NewComparable<? super T>>
                 {
                     return null;
                 }
-                else
+                else if (((prInternal) node).getSW().getClass().getName()
+                                .equals("PrQuadTree$prInternal"))
                 {
                     PRnode<T> holder = delete(x, ((prInternal) node).getSW(),
                                     mid_x, min_x, max_y, mid_y);
-                    holder = getChild(holder);
+                    // holder = getChild(holder);
                     if (holder != null)
                     {
                         ((prInternal) node).setSW(holder);
                     }
                     return holder;
+                }
+                else if (((prInternal) node).getSW().getClass().getName()
+                                .equals("PrQuadTree$prLeaf")) // is leaf
+                {
+                    PRnode<T> holder = delete(x, ((prInternal) node).getSW(),
+                                    mid_x, min_x, max_y, mid_y);
+                    holder = getChild(holder);
+                    if (holder != null) // checks not null before setting the
+                    // new child
+                    {
+                        return node;
+                    }
+                    return null;
                 }
 
             }
@@ -403,16 +429,30 @@ public class PrQuadTree<T extends NewComparable<? super T>>
                 {
                     return null;
                 }
-                else
+                else if (((prInternal) node).getSE().getClass().getName()
+                                .equals("PrQuadTree$prInternal"))
                 {
                     PRnode<T> holder = delete(x, ((prInternal) node).getSE(),
                                     max_x, mid_x, max_y, mid_y);
-                    holder = getChild(holder);
+                    // holder = getChild(holder);
                     if (holder != null)
                     {
                         ((prInternal) node).setSE(holder);
                     }
                     return holder;
+                }
+                else if (((prInternal) node).getSE().getClass().getName()
+                                .equals("PrQuadTree$prLeaf")) // is leaf
+                {
+                    PRnode<T> holder = delete(x, ((prInternal) node).getSE(),
+                                    max_x, mid_x, max_y, mid_y);
+                    holder = getChild(holder);
+                    if (holder != null) // checks not null before setting the
+                    // new child
+                    {
+                        return node;
+                    }
+                    return null;
                 }
 
             }
@@ -425,18 +465,31 @@ public class PrQuadTree<T extends NewComparable<? super T>>
                 {
                     return null;
                 }
-                else
+                else if (((prInternal) node).getNE().getClass().getName()
+                                .equals("PrQuadTree$prInternal"))
                 {
                     PRnode<T> holder = delete(x, ((prInternal) node).getNE(),
                                     max_x, mid_x, mid_y, min_y);
-                    holder = getChild(holder);
+                    // holder = getChild(holder);
                     if (holder != null)
                     {
                         ((prInternal) node).setNE(holder);
                     }
                     return holder;
                 }
-
+                else if (((prInternal) node).getNE().getClass().getName()
+                                .equals("PrQuadTree$prLeaf")) // is leaf
+                {
+                    PRnode<T> holder = delete(x, ((prInternal) node).getNE(),
+                                    max_x, mid_x, mid_y, min_y);
+                    holder = getChild(holder);
+                    if (holder != null) // checks not null before setting the
+                    // new child
+                    {
+                        return node;
+                    }
+                    return null;
+                }
             }
 
         }
@@ -587,80 +640,102 @@ public class PrQuadTree<T extends NewComparable<? super T>>
 
     public void dump()
     {
-        dump(root, worldXmax, worldXmin, worldYmax, worldYmin, worldXmax,
-                        worldXmin, worldYmax, worldYmin);
+        int count = 0;
+        count = dump(root, worldXmax, worldXmin, worldYmax, worldYmin,
+                        worldXmax, worldXmin, worldYmax, worldYmin, count, 0);
+        System.out.println(
+                        "QuadTree Size: " + count + " QuadTree Nodes Printed.");
     }
 
-    private PRnode<T> dump(PRnode<T> node, int max_x, int min_x, int max_y,
-                    int min_y, int regionMax_x, int regionMin_x,
-                    int regionMax_y, int regionMin_y)
+    private int dump(PRnode<T> node, int max_x, int min_x, int max_y, int min_y,
+                    int regionMax_x, int regionMin_x, int regionMax_y,
+                    int regionMin_y, int count, int indent)
     {
-        // if (node == null)
-        // {
-        // return null; // Not found
-        // }
-        // else if (node.getClass().getName().equals("PrQuadTree$prLeaf"))
-        // {
-        // ArrayList<T> temp = ((prLeaf) node).getData();
-        // while (temp.size() != 0)
-        // {
-        // if ((temp.get(0).compareToX(regionMax_x) <= 0)
-        // && (temp.get(0).compareToX(regionMin_x) >= 0)
-        // && (temp.get(0).compareToY(regionMax_x) <= 0)
-        // && (temp.get(0).compareToY(regionMin_x) >= 0))
-        // {
-        // temp.get(0).toString();
-        // }
-        // temp.remove(0);
-        // }
-        // return node;
-        // }
-        // else if (node.getClass().getName().equals("PrQuadTree$prInternal"))
-        // {
-        // int mid_x = (min_x + max_x) / 2;
-        // int mid_y = (min_y + max_y) / 2;
-        // if ((regionMin_x <= mid_x) && (regionMax_y > mid_y))
-        // { // quadrant 2
-        // return regionSearch(((prInternal) node).getNW(), mid_x, min_x,
-        // max_y, mid_y, regionMax_x, regionMin_x,
-        // regionMax_y, regionMin_y);
-        // }
-        // else if ((regionMin_x < mid_x) && (regionMin_y <= mid_y))
-        // { // quadrant 3
-        // return regionSearch(((prInternal) node).getSW(), mid_x, min_x,
-        // mid_y, min_y, regionMax_x, regionMin_x,
-        // regionMax_y, regionMin_y);
-        // }
-        // else if ((regionMax_x >= mid_x) && (regionMax_y < mid_y))
-        // { // quadrant 4
-        // return regionSearch(((prInternal) node).getSE(), max_x, mid_x,
-        // mid_y, min_y, regionMax_x, regionMin_x,
-        // regionMax_y, regionMin_y);
-        // }
-        // else if ((regionMax_x >= mid_x) && (regionMax_y >= mid_y))
-        // { // quadrant 1
-        // return regionSearch(((prInternal) node).getNE(), max_x, mid_x,
-        // max_y, mid_y, regionMax_x, regionMin_x,
-        // regionMax_y, regionMin_y);
-        // }
-        // }
-        return null;
+        String padding = "";
+        for (int i = 0; i < indent; i++)
+        {
+            padding = padding + "  ";
+        }
+        if (node == null)
+        {
+            return 0; // Not found
+        }
+        else if (node.getClass().getName().equals("PrQuadTree$prLeaf"))
+        {
+            System.out.println(padding + "Node at " + min_x + ", " + min_y
+                            + ", " + (max_x - min_x) + ":");
+
+            count++;
+            ArrayList<T> temp = ((prLeaf) node).getData();
+            for (int i = 0; i < temp.size(); i++)
+            {
+                System.out.println(padding + temp.get(i).toString());
+            }
+            return count;
+        }
+        else if (node.getClass().getName().equals("PrQuadTree$prInternal"))
+        {
+            System.out.println(padding + "Node at " + min_x + ", " + min_y
+                            + ", " + (max_x - min_x) + ": " + "Internal");
+            count++;
+            int mid_x = (min_x + max_x) / 2;
+            int mid_y = (min_y + max_y) / 2;
+            indent++;
+            if ((regionMin_x <= mid_x) && (regionMin_y < mid_y))
+            { // quadrant 2
+                count = dump(((prInternal) node).getNW(), mid_x, min_x, mid_y,
+                                min_y, regionMax_x, regionMin_x, regionMax_y,
+                                regionMin_y, count, indent);
+            }
+
+            if ((regionMax_x >= mid_x) && (regionMin_y < mid_y))
+            { // quadrant 1
+                count = dump(((prInternal) node).getNE(), max_x, mid_x, mid_y,
+                                min_y, regionMax_x, regionMin_x, regionMax_y,
+                                regionMin_y, count, indent);
+            }
+
+            if ((regionMin_x < mid_x) && (regionMax_y >= mid_y))
+            { // quadrant 3
+                count = dump(((prInternal) node).getSW(), mid_x, min_x, max_y,
+                                mid_y, regionMax_x, regionMin_x, regionMax_y,
+                                regionMin_y, count, indent);
+            }
+            if ((regionMax_x >= mid_x) && (regionMax_y > mid_y))
+            { // quadrant 4
+                count = dump(((prInternal) node).getSE(), max_x, mid_x, max_y,
+                                mid_y, regionMax_x, regionMin_x, regionMax_y,
+                                regionMin_y, count, indent);
+            }
+
+        }
+        else if (node.getClass().getName().equals("PrQuadTree$prEmpty"))
+        {
+            System.out.println(padding + "Node at " + min_x + ", " + min_y
+                            + ", " + (max_x - min_x) + ": " + "Empty");
+            count++;
+        }
+        return count;
     }
 
     public void regionSearch(int regionMax_x, int regionMin_x, int regionMax_y,
                     int regionMin_y)
     {
-        regionSearch(root, worldXmax, worldXmin, worldYmax, worldYmin,
-                        regionMax_x, regionMin_x, regionMax_y, regionMin_y);
+        int count = 0;
+        count = regionSearch(root, worldXmax, worldXmin, worldYmax, worldYmin,
+                        regionMax_x, regionMin_x, regionMax_y, regionMin_y,
+                        count);
+        System.out.println(count + " QuadTree Nodes Visited");
     }
 
-    private PRnode<T> regionSearch(PRnode<T> node, int max_x, int min_x,
-                    int max_y, int min_y, int regionMax_x, int regionMin_x,
-                    int regionMax_y, int regionMin_y)
+    private int regionSearch(PRnode<T> node, int max_x, int min_x, int max_y,
+                    int min_y, int regionMax_x, int regionMin_x,
+                    int regionMax_y, int regionMin_y, int count)
     {
+        count++;
         if (node == null)
         {
-            return null; // Not found
+            return 0; // Not found
         }
         else if (node.getClass().getName().equals("PrQuadTree$prLeaf"))
         {
@@ -675,7 +750,7 @@ public class PrQuadTree<T extends NewComparable<? super T>>
                     System.out.println(temp.get(i).toString());
                 }
             }
-            return null;
+            return count;
         }
         else if (node.getClass().getName().equals("PrQuadTree$prInternal"))
         {
@@ -683,30 +758,30 @@ public class PrQuadTree<T extends NewComparable<? super T>>
             int mid_y = (min_y + max_y) / 2;
             if ((regionMin_x <= mid_x) && (regionMin_y < mid_y))
             { // quadrant 2
-                regionSearch(((prInternal) node).getNW(), mid_x, min_x, mid_y,
-                                min_y, regionMax_x, regionMin_x, regionMax_y,
-                                regionMin_y);
+                count = regionSearch(((prInternal) node).getNW(), mid_x, min_x,
+                                mid_y, min_y, regionMax_x, regionMin_x,
+                                regionMax_y, regionMin_y, count);
             }
             if ((regionMin_x < mid_x) && (regionMax_y >= mid_y))
             { // quadrant 3
-                regionSearch(((prInternal) node).getSW(), mid_x, min_x, max_y,
-                                mid_y, regionMax_x, regionMin_x, regionMax_y,
-                                regionMin_y);
+                count = regionSearch(((prInternal) node).getSW(), mid_x, min_x,
+                                max_y, mid_y, regionMax_x, regionMin_x,
+                                regionMax_y, regionMin_y, count);
             }
             if ((regionMax_x >= mid_x) && (regionMax_y > mid_y))
             { // quadrant 4
-                regionSearch(((prInternal) node).getSE(), max_x, mid_x, max_y,
-                                mid_y, regionMax_x, regionMin_x, regionMax_y,
-                                regionMin_y);
+                count = regionSearch(((prInternal) node).getSE(), max_x, mid_x,
+                                max_y, mid_y, regionMax_x, regionMin_x,
+                                regionMax_y, regionMin_y, count);
             }
             if ((regionMax_x >= mid_x) && (regionMin_y < mid_y))
             { // quadrant 1
-                regionSearch(((prInternal) node).getNE(), max_x, mid_x, mid_y,
-                                min_y, regionMax_x, regionMin_x, regionMax_y,
-                                regionMin_y);
+                count = regionSearch(((prInternal) node).getNE(), max_x, mid_x,
+                                mid_y, min_y, regionMax_x, regionMin_x,
+                                regionMax_y, regionMin_y, count);
             }
         }
-        return null;
+        return count;
     }
 
     public void duplicateFind()
@@ -728,9 +803,9 @@ public class PrQuadTree<T extends NewComparable<? super T>>
             {
                 for (int j = i + 1; j < temp.size(); j++)
                 {
-                    if (temp.get(i).equals(temp.get(j)))
+                    if (temp.get(i).sameXY(temp.get(j)))
                     {
-                        System.out.println(temp.get(i).toString());
+                        System.out.println(temp.get(i).toStringNoName());
                         return node;
                     }
                 }

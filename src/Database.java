@@ -64,7 +64,9 @@ public class Database
                 try
                 {
                     bstTree.remove(holder);
-                    prTree.delete(holder); // remove rectangle here
+                    prTree.delete(holder);
+                    System.out.println("REMOVED FROM BST");// remove rectangle
+                                                           // here
                     found = true;
                     break;
                 }
@@ -94,7 +96,9 @@ public class Database
                 try
                 {
                     bstTree.remove(holder);
-                    prTree.delete(holder); // remove rectangle here
+                    prTree.delete(holder);
+                    System.out.println("REMOVED FROM BST");// remove rectangle
+                                                           // here
                     found = true;
                     break;
                 }
@@ -132,7 +136,6 @@ public class Database
                 System.out.println("Points Intersecting Region: (" + x + ", "
                                 + y + ", " + width + ", " + height + ")");
                 prTree.regionSearch((x + width), x, (y + height), y);
-                System.out.println("X QuadTree Nodes Visited");
             }
             else
             {
@@ -158,7 +161,7 @@ public class Database
     {
         boolean found = false;
         Point searchRec = new Point(name, 1, 1);
-        Iterator<Point> treeSearch = bstTree.iterator(); // creates first
+        Iterator<Point> treeSearch = bstTree.iterator(); // creates firs
         // iterator
         while (treeSearch.hasNext())
         { // goes through the tree once
@@ -184,7 +187,17 @@ public class Database
 
     public void dump()
     {
-        System.out.println("Still working on dump");
+        bstTree.dump();
+        Iterator<Point> numSearch = bstTree.iterator();
+        int size = 0;
+        while (numSearch.hasNext())
+        {
+            size++;
+            numSearch.next();
+        }
+        System.out.println("BST size is: " + size);
+        System.out.println("QuadTree Dump:");
+        prTree.dump();
 
     }
 

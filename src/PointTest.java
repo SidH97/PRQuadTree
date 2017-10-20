@@ -63,9 +63,9 @@ public class PointTest extends student.TestCase
     public void testEqualstoString()
     {
         assertEquals("(name, 0, 0)", point2.toString());
-        assertTrue(point2.equals(point2));
-        assertTrue(point2.equals(point1));
-        assertFalse(point2.equals(point3));
+        assertTrue(point2.sameXY(point2));
+        assertTrue(point2.sameXY(point1));
+        assertFalse(point2.sameXY(point3));
 
     }
 

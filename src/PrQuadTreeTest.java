@@ -206,17 +206,11 @@ public class PrQuadTreeTest extends student.TestCase
     public void testDupes()
     {
         System.out.println("DUPES");
-        tree.insert(point1);
-        tree.insert(point1);
-        tree.insert(point1);
-        tree.insert(point2);
-        tree.insert(point2);
-        tree.insert(point2);
-        tree.insert(pointNE);
-        tree.insert(pointNE);
-        tree.delete(point1);
-        tree.delete(point1);
-        assertTrue(tree.find(point2));
+        Point point10 = new Point("Y", 10, 10);
+        Point point11 = new Point("U", 10, 10);
+        assertTrue(point10.sameXY(point11));
+        tree.insert(point10);
+        tree.insert(point11);
         tree.duplicateFind();
     }
 

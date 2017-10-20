@@ -93,14 +93,13 @@ public class BSTTest extends student.TestCase
         tree.insert(rec2);
         try
         {
-        	tree.remove(rec2);
+            tree.remove(rec2);
         }
         catch (Exception e)
         {
-        	out = e;
+            out = e;
         }
-        
-        
+
     }
 
     /**
@@ -123,5 +122,43 @@ public class BSTTest extends student.TestCase
         assertFalse(tree.isEmpty());
         tree.makeEmpty();
         assertTrue(tree.isEmpty());
+    }
+
+    public void testNew()
+    {
+        Point point1 = new Point("r_r", 1, 20);
+        Point point2 = new Point("rec", 10, 30);
+        Point point3 = new Point("r_42", 1, 20);
+        Point point4 = new Point("far", 200, 200);
+        Point point5 = new Point("r_52", 1, 20);
+        Point point6 = new Point("r_65", 200, 200);
+
+        tree.insert(point1);
+        tree.insert(point2);
+        tree.insert(point3);
+        tree.insert(point4);
+        tree.insert(point5);
+        tree.insert(point6);
+
+        assertEquals(point3, tree.find(point3));
+        assertEquals(point4, tree.find(point4));
+        assertEquals(point5, tree.find(point5));
+        assertEquals(point6, tree.find(point6));
+
+        try
+        {
+
+            tree.remove(point1);
+            tree.remove(point2);
+        }
+        catch (Exception e)
+        {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        assertEquals(point3, tree.find(point3));
+        assertEquals(point4, tree.find(point4));
+        assertEquals(point5, tree.find(point5));
+        assertEquals(point6, tree.find(point6));
     }
 }

@@ -99,9 +99,14 @@ public class Point implements Comparable<Point>, NewComparable<Point>
      *            the point to compare to
      * @return true if the points are equal false if not.
      */
-    public boolean equals(Point ct)
+    public boolean sameXY(Point ct)
     {
         return ((this.getX() == ct.getX()) && (this.getY() == ct.getY()));
+    }
+
+    public String toStringNoName()
+    {
+        return "(" + xcord + ", " + ycord + ")";
     }
 
 }

@@ -107,16 +107,4 @@ class BSTNode<T>
         right = value;
     }
 
-    /**
-     * Provides an in-order representation of the node
-     * 
-     * @return a string representation of the node
-     * 
-     * @Override public String toString() { StringBuilder builder = new
-     *           StringBuilder(); if (left != null) {
-     *           builder.append(left.toString() + ", "); }
-     *           builder.append(data.toString()); if (right != null) {
-     *           builder.append(", " + right.toString()); } return
-     *           builder.toString(); }
-     */
 }
