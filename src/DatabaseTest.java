@@ -42,13 +42,16 @@ public class DatabaseTest extends student.TestCase
         db.regionSearch(0, 0, 0, 1024);
         db.regionSearch(0, 0, 1024, 0);
         db.regionSearch(1024, 1024, 0, 1024);
-        db.regionSearch(1024, 1024, 1024, 0);
+        db.regionSearch(1024, 1024, 1024, 1024);
         db.search("name");
         db.search("no");
         db.removeBydimensions(1, 0);
         db.removeByName("name");
         db.removeBydimensions(1, 15);
-        db.removeByName("name32");
+        db.removeByName("zoop");
+        db.removeByName("abc");
+        db.removeBydimensions(101, 101);
+        db.removeBydimensions(45, 15);
     }
 
 }

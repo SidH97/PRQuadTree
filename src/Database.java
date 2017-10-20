@@ -71,7 +71,7 @@ public class Database
                 }
                 catch (Exception e)
                 {
-                    // to do
+
                 }
             }
         }
@@ -129,16 +129,17 @@ public class Database
     {
         if (x >= 0 && y >= 0 && width > 0 && height > 0)
         {
-            if (x + width <= 1024 && y + height <= 1024)
-            {
-                System.out.println("Points Intersecting Region: (" + x + ", "
-                                + y + ", " + width + ", " + height + ")");
-                prTree.regionSearch((x + width), x, (y + height), y);
-            }
-            else
+            if (x + width > 1024 || y + height > 1024)
             {
                 System.out.println("Invalid Region: (" + x + ", " + y + ", "
                                 + width + ", " + height + ")");
+            }
+            else
+            {
+
+                System.out.println("Points Intersecting Region: (" + x + ", "
+                                + y + ", " + width + ", " + height + ")");
+                prTree.regionSearch((x + width), x, (y + height), y);
             }
         }
         else

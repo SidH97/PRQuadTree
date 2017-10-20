@@ -303,7 +303,7 @@ public class BST<T extends Comparable<T>> implements Iterable<T>
      * 
      * @return the root node
      */
-    private BSTNode<T> findRoot()
+    public BSTNode<T> findRoot()
     {
         return root;
     }
