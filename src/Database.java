@@ -132,7 +132,6 @@ public class Database
                 System.out.println("Points Intersecting Region: (" + x + ", "
                                 + y + ", " + width + ", " + height + ")");
                 prTree.regionSearch((x + width), x, (y + height), y);
-                System.out.println("X QuadTree Nodes Visited");
             }
             else
             {
