@@ -47,7 +47,7 @@ public class BST<T extends Comparable<T>> implements Iterable<T>
         {
             System.out.println("Node has depth 0, Value (null)");
         }
-        this.inOrder(root, 0);        
+        this.inOrder(root, 0);
     }
     
     /**
@@ -57,7 +57,7 @@ public class BST<T extends Comparable<T>> implements Iterable<T>
      *            the starting node
      * @param depth
      *            the recursive depth, starts at 0
-     * @return the size of tree
+     * @return the max depth of the tree
      */
     private int inOrder(BSTNode<T> t, int depth)
     {
@@ -334,26 +334,6 @@ public class BST<T extends Comparable<T>> implements Iterable<T>
                 stack = new Stack<BSTNode<T>>();
             }
         }
-
-        // public String toString() {
-        // inOrder(root, 0);
-        // return "";
-        // }
-        //
-        // private void inOrder(BSTNode<T> t, int depth) {
-        // if (t.getLeft() != null) {
-        // inOrder(t.getLeft(), depth++);
-        // }
-        // else if (t != null) {
-        // System.out.println("Node had depth " + depth + ", Value"
-        // + t.getData().toString());
-        // }
-        // if (t.getRight() != null) {
-        // inOrder(t.getRight(), depth++);
-        // }
-        // // Visit the node by Printing the node data
-        //
-        // }
 
         /**
          * @return next node

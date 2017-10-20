@@ -192,7 +192,8 @@ public class Database
             numSearch.next();
         }
         System.out.println("BST size is: " + size);
-        System.out.println("Still working on dump");
+        System.out.println("QuadTree Dump:");
+        prTree.dump();
 
     }
 
