@@ -64,7 +64,9 @@ public class Database
                 try
                 {
                     bstTree.remove(holder);
-                    prTree.delete(holder); // remove rectangle here
+                    prTree.delete(holder);
+                    System.out.println("REMOVED FROM BST");// remove rectangle
+                                                           // here
                     found = true;
                     break;
                 }
@@ -94,7 +96,9 @@ public class Database
                 try
                 {
                     bstTree.remove(holder);
-                    prTree.delete(holder); // remove rectangle here
+                    prTree.delete(holder);
+                    System.out.println("REMOVED FROM BST");// remove rectangle
+                                                           // here
                     found = true;
                     break;
                 }

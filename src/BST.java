@@ -49,7 +49,7 @@ public class BST<T extends Comparable<T>> implements Iterable<T>
         }
         this.inOrder(root, 0);
     }
-    
+
     /**
      * This method will be recursively called dump our bst in order
      * 
@@ -246,7 +246,7 @@ public class BST<T extends Comparable<T>> implements Iterable<T>
             if (node.getLeft() != null && node.getRight() != null)
             {
                 result = findMax(node.getLeft());
-                result.setLeft(null);
+                result.setLeft(node.getLeft());
                 result.setRight(node.getRight());
             }
             // If there is only one child on the left

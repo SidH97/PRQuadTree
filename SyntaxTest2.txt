@@ -1,0 +1,7 @@
+insert r_r          1 20
+insert rec        10 30
+insert r_42   1 20
+insert far  200 200
+remove r_r
+remove 10 30
+dump
