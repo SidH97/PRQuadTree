@@ -22,7 +22,7 @@ public class Point1
         }
         else
         {
-            new FileReader("SyntaxTest2.txt");
+            new FileReader("SyntaxTest.txt");
             // System.out.println("No File given");
         }
     }
