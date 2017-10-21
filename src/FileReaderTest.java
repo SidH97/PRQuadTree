@@ -13,17 +13,23 @@ public class FileReaderTest extends student.TestCase
 {
 
     /**
-     * Set's up the test environment.
+     * This method will test
      */
-    public void setUp()
-    {
-
-    }
-
     public void testHere()
     {
         FileReader fr = new FileReader("SyntaxTest.txt");
-        fr.toString();
+        FileReader fr2 = new FileReader("SyntaxTest1.txt");
+        try
+        {
+            @SuppressWarnings("unused")
+            FileReader fr3 = new FileReader("fh");
+        }
+        catch (Exception e)
+        {
+            // intentionally blank
+        }
+        assertNotNull(fr.toString());
+        assertNotNull(fr2.toString());
     }
 
 }

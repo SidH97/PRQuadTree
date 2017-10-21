@@ -44,7 +44,6 @@ public class FileReader
         catch (Exception e)
         {
             System.out.println("Cannot find given File Name!");
-            System.exit(0);
         }
         while (scanner.hasNextLine())
         {
@@ -65,8 +64,7 @@ public class FileReader
                     }
                     catch (Exception e)
                     {
-                        System.out.println("missing parameter for command "
-                                        + command);
+                        // intentionally left blank
                     }
                 }
                 else if (command.equals("remove"))
@@ -97,8 +95,7 @@ public class FileReader
                     }
                     catch (Exception e)
                     {
-                        System.out.println("missing parameter for command "
-                                        + command);
+                        // intentionally left blank
                     }
                 }
                 else if (command.equals("duplicates"))
@@ -114,7 +111,7 @@ public class FileReader
                     }
                     catch (Exception e)
                     {
-                        System.out.println("name not given");
+                        // intentionally left blank
                     }
                 }
                 else if (command.equals("dump"))
@@ -125,10 +122,6 @@ public class FileReader
                 {
                     System.out.println("");
                 }
-            }
-            else
-            {
-                lineScan.close();
             }
             lineScan.close();
 

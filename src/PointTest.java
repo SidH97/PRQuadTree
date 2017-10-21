@@ -3,7 +3,7 @@
  */
 
 /**
- * This class will
+ * This class will test point
  *
  * @author Siddharth Hingorani (sid97)
  * @version 2016.xx.xx
@@ -17,7 +17,6 @@ public class PointTest extends student.TestCase
     private Point point3;
     private Point point4;
     private Point point5;
-    private BST<Point> tree;
 
     /**
      * Set's up the test environment.
@@ -29,6 +28,7 @@ public class PointTest extends student.TestCase
         point3 = new Point("Name", 1, 5);
         point4 = new Point("abc", 1, 1);
         point5 = new Point("zbc", 3, 0);
+        BST<Point> tree;
         tree = new BST<Point>();
         tree.insert(point1);
         tree.insert(point4);
@@ -46,6 +46,9 @@ public class PointTest extends student.TestCase
 
     }
 
+    /**
+     * This method will test compare
+     */
     public void testCompares()
     {
         assertEquals(0, point2.compareTo(point1));
@@ -60,6 +63,9 @@ public class PointTest extends student.TestCase
 
     }
 
+    /**
+     * This method will test string
+     */
     public void testEqualstoString()
     {
         assertEquals("(name, 0, 0)", point2.toString());

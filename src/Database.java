@@ -13,6 +13,10 @@ public class Database
     private PrQuadTree<Point> prTree;
     private BST<Point> bstTree;
 
+    /**
+     * This is our default constructor
+     *
+     */
     public Database()
     {
         prTree = new PrQuadTree<Point>();
@@ -20,6 +24,16 @@ public class Database
 
     }
 
+    /**
+     * This method will insert point
+     * 
+     * @param name
+     *            name
+     * @param x
+     *            cord
+     * @param y
+     *            cord
+     */
     public void insertPoint(String name, int x, int y)
     {
         Point temp = new Point(name, x, y);
@@ -50,6 +64,14 @@ public class Database
 
     }
 
+    /**
+     * This method will remove by dimensions
+     * 
+     * @param x
+     *            cord
+     * @param y
+     *            cord
+     */
     public void removeBydimensions(int x, int y)
     {
         boolean found = false;
@@ -71,7 +93,7 @@ public class Database
                 }
                 catch (Exception e)
                 {
-
+                    // intentionally blank
                 }
             }
         }
@@ -81,6 +103,12 @@ public class Database
         }
     }
 
+    /**
+     * This method will remove
+     * 
+     * @param word
+     *            to rmeove
+     */
     public void removeByName(String word)
     {
         boolean found = false;
@@ -170,6 +198,9 @@ public class Database
         }
     }
 
+    /**
+     * This method will
+     */
     public void duplicates()
     {
         System.out.println("Duplicate Points:");
@@ -177,6 +208,9 @@ public class Database
 
     }
 
+    /**
+     * This method will
+     */
     public void dump()
     {
         bstTree.dump();

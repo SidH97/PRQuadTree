@@ -1,0 +1,6 @@
+hi
+remove
+insert h i u d
+insert h i u
+search 
+regionsearch r t y u

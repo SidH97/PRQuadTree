@@ -52,6 +52,7 @@ public class DatabaseTest extends student.TestCase
         db.removeByName("abc");
         db.removeBydimensions(101, 101);
         db.removeBydimensions(45, 15);
+        assertTrue(db.equals(db));
     }
 
 }

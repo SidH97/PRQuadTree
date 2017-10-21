@@ -126,6 +126,9 @@ public class BSTTest extends student.TestCase
         assertTrue(tree.isEmpty());
     }
 
+    /**
+     * This method will
+     */
     public void testNew()
     {
         Point point1 = new Point("r_r", 1, 20);
@@ -155,7 +158,6 @@ public class BSTTest extends student.TestCase
         }
         catch (Exception e)
         {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         assertEquals(point3, tree.find(point3));
@@ -164,15 +166,35 @@ public class BSTTest extends student.TestCase
         assertEquals(point6, tree.find(point6));
     }
 
+    /**
+     * This method will
+     */
     public void testDump()
     {
         tree.dump();
+        tree.insert(rec);
+        tree.insert(rec1);
+        tree.insert(rec2);
+        tree.dump();
+        try
+        {
+            tree.remove(null);
+        }
+        catch (Exception e)
+        {
+            assertNotNull(e);
+        }
+        tree = new BST<Point>();
         assertTrue(tree.isEmpty());
         Iterator<Point> treeSearch = tree.iterator();
         assertFalse(treeSearch.hasNext());
         tree.insert(rec1);
         treeSearch = tree.iterator();
+        assertEquals(rec1, treeSearch.next());
+        treeSearch = tree.iterator();
         assertTrue(treeSearch.hasNext());
+        assertEquals(rec1.toString(), tree.findRoot().getData().toString());
+
     }
 
 }
