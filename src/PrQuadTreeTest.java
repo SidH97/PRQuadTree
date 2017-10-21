@@ -92,6 +92,41 @@ public class PrQuadTreeTest extends student.TestCase
         tree.insert(point1);
         tree.delete(point1);
         assertTrue(tree.isEmpty());
+        tree = new PrQuadTree<Point>();
+        tree.insert(point);
+        tree.delete(point3);
+        
+        tree = new PrQuadTree<Point>();
+        tree.insert(pointNE);
+        tree.insert(pointNW);
+        tree.insert(pointSE);
+        tree.insert(pointSW);
+        tree.insert(pointSE);
+        
+        tree.delete(pointSE);
+        tree.delete(pointSE);
+        tree.delete(pointNW);
+        tree.delete(pointNE);
+        tree.delete(pointSW);
+        tree.delete(point);
+        tree.delete(null);
+        tree.insert(point);
+        tree.insert(point1);
+        tree.insert(point2);
+        tree.insert(point3);
+        tree.insert(point4);
+        tree.insert(point5);
+        tree.insert(point6);
+        tree.insert(point7);
+        tree.insert(point8);
+        tree.insert(pointNE);
+        tree.insert(pointNW);
+        tree.insert(pointSE);
+        tree.insert(pointSW);
+        tree.delete(pointNW);
+        tree.delete(pointNE);
+        tree.delete(pointSE);
+        tree.delete(pointSW);
     }
 
     /**
@@ -177,6 +212,10 @@ public class PrQuadTreeTest extends student.TestCase
         assertTrue(tree.find(pointSW));
         assertTrue(tree.find(pointSE));
         tree.regionSearch(256, 128, 256, 128);
+        
+        tree = new PrQuadTree<Point>();
+        tree.insert(point);
+        tree.regionSearch(1024, 0, 1024, 0);
     }
 
     public void testDupes()
@@ -187,6 +226,13 @@ public class PrQuadTreeTest extends student.TestCase
         assertTrue(point10.sameXY(point11));
         tree.insert(point10);
         tree.insert(point11);
+        tree.duplicateFind();
+        
+        tree = new PrQuadTree<Point>();
+        tree.insert(pointNE);
+        tree.insert(pointNW);
+        tree.insert(pointSE);
+        tree.insert(pointSW);
         tree.duplicateFind();
     }
 
@@ -207,6 +253,14 @@ public class PrQuadTreeTest extends student.TestCase
         tree.delete(point2);
         assertFalse(tree.isEmpty());
         tree.dump();
+    }
+    
+    public void testFind()
+    {
+    	tree.insert(point1);
+    	tree.insert(point2);
+    	tree.find(null);
+    	tree.find(point3);
     }
 
 }
