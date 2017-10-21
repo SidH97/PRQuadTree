@@ -98,14 +98,14 @@ public class PrQuadTreeTest extends student.TestCase
         tree = new PrQuadTree<Point>();
         tree.insert(point);
         tree.delete(point3);
-        
+
         tree = new PrQuadTree<Point>();
         tree.insert(pointNE);
         tree.insert(pointNW);
         tree.insert(pointSE);
         tree.insert(pointSW);
         tree.insert(pointSE);
-        
+
         tree.delete(pointSE);
         tree.delete(pointSE);
         tree.delete(pointNW);
@@ -200,7 +200,7 @@ public class PrQuadTreeTest extends student.TestCase
         assertFalse(tree.find(pointSW));
         assertFalse(tree.find(pointSE));
         tree.regionSearch(256, 128, 256, 128);
-        
+
         tree = new PrQuadTree<Point>();
         tree.insert(point);
         tree.regionSearch(1024, 0, 1024, 0);
@@ -211,14 +211,13 @@ public class PrQuadTreeTest extends student.TestCase
      */
     public void testDupes()
     {
-        System.out.println("DUPES");
         Point point10 = new Point("Y", 10, 10);
         Point point11 = new Point("U", 10, 10);
         assertTrue(point10.sameXY(point11));
         tree.insert(point10);
         tree.insert(point11);
         tree.duplicateFind();
-        
+
         tree = new PrQuadTree<Point>();
         tree.insert(pointNE);
         tree.insert(pointNW);
@@ -232,7 +231,6 @@ public class PrQuadTreeTest extends student.TestCase
      */
     public void testDelete1()
     {
-        System.out.println("HERE!");
         point1 = new Point("point1", 1, 1);
         point2 = new Point("point2", 100, 100);
         point3 = new Point("point3", 10, 50);
@@ -246,18 +244,21 @@ public class PrQuadTreeTest extends student.TestCase
         tree.insert(point2);
         tree.regionSearch(0, 0, 1024, 1024);
         tree.dump();
-        System.out.println("HERE@!");
         tree.delete(point2);
         assertFalse(tree.isEmpty());
         tree.dump();
     }
-    
+
+    /**
+     * This method will test find
+     */
     public void testFind()
     {
-    	tree.insert(point1);
-    	tree.insert(point2);
-    	tree.find(null);
-    	tree.find(point3);
+        tree.insert(point1);
+        tree.insert(point2);
+        tree.find(null);
+        tree.find(point3);
+        assertFalse(tree.isEmpty());
     }
 
 }

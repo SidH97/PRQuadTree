@@ -373,6 +373,14 @@ public class PrQuadTree<T extends Comparable2D<? super T>>
     }
 
     /**
+     * Make the tree logically empty.
+     */
+    public void makeEmpty()
+    {
+        root = new PrEmpty();
+    }
+
+    /**
      * is the PR QuadTree Empty
      * 
      * @return if root is null
